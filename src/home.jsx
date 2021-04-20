@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import Joi from 'joi-browser'; 
 import Form from './form/form'; 
 import axios from 'axios'; 
-import { apiEndPoint } from './config/apiEndPoint'; 
-import axiosApiInstance from './auth/httpService';
- 
+import { apiEndPoint } from './config/apiEndPoint';  
+import {getCurrentUser} from './auth/authService';
 
 class Home extends Form{
 
@@ -26,21 +25,19 @@ class Home extends Form{
 
     
 
-    async componentDidMount(){  
+    componentDidMount(){  
         //console.log(apiEndPoint('get'));  
-    }
-
-    getUsers= async () =>{
-        
-        // sample axios.get(apiEndPoint('get'), { headers: {"Authorization" : `Bearer ${getJwt()}`} })
-
-        axiosApiInstance.get(apiEndPoint('get') )
-        .then(res => {
-            console.log(res.data); 
-        })
-
+        try{
+            const userdata = getCurrentUser();
+            if(userdata.email != null){
+                window.location.href = '/admin/dashboard';
+            }
+        }
+        catch(e){ } 
 
     }
+
+   
 
     doSubmit = async () =>{ 
         try{
@@ -66,7 +63,7 @@ class Home extends Form{
                     <div className="col-md-4"></div>
                     <div className="col-md-4 text-left">
 
-                        <span className="btn btn-danger" onClick={this.getUsers}> Get Users </span>
+                        
 
                     <form className="form-signin" onSubmit={this.handleSubmit} noValidate>
 
