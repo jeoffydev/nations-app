@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import React, {Component} from 'react';   
-
+ 
 
 export function getCurrentUser(){ 
     try{
@@ -10,15 +10,14 @@ export function getCurrentUser(){
     catch(e){
         return null;
     } 
-}
-
-
+} 
 export function getJwt(){ 
     return localStorage.getItem('token');
 }
 
+ 
 
 export default{
     getCurrentUser,
-    getJwt
+    getJwt 
 }

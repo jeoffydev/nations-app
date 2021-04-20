@@ -4,12 +4,13 @@ import React, {Component} from 'react';
 
 export function apiEndPoint(opts){
 
+    const urlApi = 'http://localhost:62961/';
     switch(opts) {
         case 'get':
-            return 'http://localhost:62961/api/account';
+            return urlApi + 'api/account';
           break;
         case 'login':
-            return 'http://localhost:62961/api/account/login';
+            return urlApi + 'api/account/login';
           break;
          
         default:

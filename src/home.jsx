@@ -3,15 +3,9 @@ import ReactDOM from 'react-dom';
 import Joi from 'joi-browser'; 
 import Form from './form/form'; 
 import axios from 'axios'; 
-import { apiEndPoint } from './config/apiEndPoint';
-import { getJwt } from './auth/authService';
-
-/*const jwtToken = localStorage.getItem('token');
-const authAxios = axios.create(
-    { 
-        headers : { Authorization: `Bearer ${jwtToken}` }
-    }
-) */
+import { apiEndPoint } from './config/apiEndPoint'; 
+import axiosApiInstance from './auth/httpService';
+ 
 
 class Home extends Form{
 
@@ -32,18 +26,15 @@ class Home extends Form{
 
     
 
-    async componentDidMount(){ 
-        
-        //console.log(apiEndPoint('get')); 
-      
-        
+    async componentDidMount(){  
+        //console.log(apiEndPoint('get'));  
     }
 
     getUsers= async () =>{
-       // const { data: users } = await  authAxios.get(apiEndPoint('get'));  
-        //console.log(users);
+        
+        // sample axios.get(apiEndPoint('get'), { headers: {"Authorization" : `Bearer ${getJwt()}`} })
 
-        axios.get(apiEndPoint('get'), { headers: {"Authorization" : `Bearer ${getJwt()}`} })
+        axiosApiInstance.get(apiEndPoint('get') )
         .then(res => {
             console.log(res.data); 
         })
@@ -51,9 +42,7 @@ class Home extends Form{
 
     }
 
-    doSubmit = async () =>{
-       
-
+    doSubmit = async () =>{ 
         try{
             console.log("Form submitted" );
             console.log(apiEndPoint('login'));
