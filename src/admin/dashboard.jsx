@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import { apiEndPoint } from '../config/apiEndPoint'; 
 import axiosApiInstance from '../auth/httpService';
-import {getCurrentUser} from '../auth/authService';
+import {getCurrentUser, logout} from '../auth/authService';
 
 class Dashboard extends Component{
     state ={
@@ -29,12 +29,15 @@ class Dashboard extends Component{
     }
 
 
+
+
     render(){
         
         return ( 
             <React.Fragment>
                     <h1> Dashboard / Hello {this.state.username}</h1>
                     <span className="btn btn-danger" onClick={this.getUsers}> Get Users </span> 
+                    <button type="button" class="btn btn-link" onClick={logout}>Logout</button>
  
            </ React.Fragment>
         )

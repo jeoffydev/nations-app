@@ -4,7 +4,8 @@ import Joi from 'joi-browser';
 import Form from './form/form'; 
 import axios from 'axios'; 
 import { apiEndPoint } from './config/apiEndPoint';  
-import {getCurrentUser} from './auth/authService';
+import {getCurrentUser, login} from './auth/authService'; 
+import AlertMessage from './common/alert';
 
 class Home extends Form{
 
@@ -14,6 +15,7 @@ class Home extends Form{
             password: ''
         },
         errors : { },
+        loginError: false,
         userLoggedIn : {}
     }
 
@@ -40,38 +42,41 @@ class Home extends Form{
    
 
     doSubmit = async () =>{ 
+        const { loginError } = this.state;
         try{
-            console.log("Form submitted" );
-            console.log(apiEndPoint('login'));
-            const {data}  = await axios.post( apiEndPoint('login'), this.state.data );  
-            console.log(data);
-            localStorage.setItem('token', data.token);
+            //console.log("Form submitted" );
+            //console.log(apiEndPoint('login'));
+            const {data}  = await axios.post( apiEndPoint('login'), this.state.data );   
+            login(data);
         }
         catch(e){
-            console.log(e.response.data.error)
-            
+            //console.log(e.response.data.error); 
             //console.log(e.response.error + '/' + e.response.status);
+
+            const loginError =  e.response.data.error;
+            this.setState({ loginError });
         }
     }
     
     render(){
-       
         
+        const { loginError } = this.state;
+
         return (
             <React.Fragment>
                 <div className="row">
                     <div className="col-md-4"></div>
                     <div className="col-md-4 text-left">
 
-                        
-
-                    <form className="form-signin" onSubmit={this.handleSubmit} noValidate>
-
-                        <div className="text-center mb-4">
+                    <div className="text-center mb-4">
                             <img className="mb-4" src={"/logo-nations.png"}  className="img-thumbnail"    alt="logo"  />
                             <h1 className="h3 mb-3 font-weight-normal">Nations Roster App</h1>
                             <p>“Advancing the kingdom”. We exist to make disciples who in turn make disciples.</p>
-                        </div>
+                    </div>
+
+                    {loginError && <AlertMessage value={loginError} classes='alert-danger' /> }        
+
+                    <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
 
                         {this.renderInput('email', 'Email Address', 'email')}
                         {this.renderInput('password', 'Password', 'password')}
