@@ -32,7 +32,7 @@ class Home extends Form{
         try{
             const userdata = getCurrentUser();
             if(userdata.email != null){
-                window.location.href = '/admin/dashboard';
+                this.props.history.push('/admin')
             }
         }
         catch(e){ } 
@@ -64,7 +64,7 @@ class Home extends Form{
 
         return (
             <React.Fragment>
-                <div className="row">
+                <div className="row login-form">
                     <div className="col-md-4"></div>
                     <div className="col-md-4 text-left">
 

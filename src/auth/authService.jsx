@@ -18,7 +18,7 @@ export function getJwt(){
 
 export function login(data){
     localStorage.setItem('token', data.token);
-    window.location.href="/admin/dashboard";
+    window.location.href="/admin";
 }
 
 export function logout(){
