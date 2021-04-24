@@ -36,6 +36,18 @@ export function getCurrentUser(){
         return null;
     } 
 } 
+
+export function getUserRole(){
+    try{
+        const { role }= getCurrentUser();
+        return role;
+    }
+    catch(e){
+        return null;
+    } 
+    
+}
+
 export function getJwt(){ 
     return localStorage.getItem('token');
 }
@@ -57,5 +69,6 @@ export default{
     getCurrentUser,
     getJwt,
     checkLogin,
-    authAdminAccess 
+    authAdminAccess,
+    getUserRole 
 }
