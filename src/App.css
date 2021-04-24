@@ -42,11 +42,22 @@ h1, h2, h3, h4, h5, h6{
 .body-content{
   padding: 25px;
 }
+.collapse-div-container{
+  margin-bottom: 2px;
+}
+.teal-border{
+  border-color: #04625D !important;
+}
 
 /* navigation */
 
 .teal{
   background-color: #04625D !important;
+  border:0px none !important
+}
+.btn{
+  background-color: #04625D !important;
+  border:0px none !important
 }
 
 @media (prefers-reduced-motion: no-preference) {
