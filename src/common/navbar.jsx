@@ -21,6 +21,9 @@ class Navbar extends Component{
                                     <NavLink className="nav-link" to="/admin" exact={true}>Home  </NavLink>
                                 </li>
                                 <li className="nav-item">
+                                    <NavLink className="nav-link" to="/admin/my-rosters" > My Rosters </NavLink>
+                                </li>
+                                <li className="nav-item">
                                     <NavLink className="nav-link" to="/admin/users"  > Users </NavLink>
                                 </li>
 

@@ -32,10 +32,10 @@ class Home extends Form{
         try{
             const userdata = getCurrentUser();
             if(userdata.email != null){
-                this.props.history.push('/admin')
+                this.props.history.push('/admin/my-rosters')
             }
         }
-        catch(e){ } 
+        catch(e){   } 
 
     }
 

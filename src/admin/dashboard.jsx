@@ -1,4 +1,5 @@
 import React, {Component} from 'react';  
+//Import these 2 for api and http post
 import { apiEndPoint } from '../config/apiEndPoint'; 
 import axiosApiInstance from '../auth/httpService';
  
