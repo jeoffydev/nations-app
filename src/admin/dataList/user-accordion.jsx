@@ -1,9 +1,7 @@
 import React, {Component} from 'react';   
 
 
-const UserAccordion = ( {items } ) =>{ 
-     
-    console.log("items", items);
+const UserAccordion = ( {items } ) =>{  
 
     var userArray = [];
     for (let value of Object.values(items)) { 
