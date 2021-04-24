@@ -37,14 +37,25 @@ class Users extends Component{
 
     render(){ 
         const { dataUsers } = this.state; 
-        console.log(dataUsers) 
+
+        var userArray = [];
+        for (let value of Object.values(dataUsers)) { 
+            var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email}
+            userArray.push(arrayPush);
+        } 
+        const userList = userArray.map( (user) =>  
+            <li key={user.id}>{user.fullname} / {user.email}</li>
+        ) 
 
         return ( 
             <React.Fragment> 
                     <main className="container whitebg text-left body-content">
                         
                         USERS
-                         
+                        <ul>
+                            {userList} 
+                        </ul>
+                        
                         
 
                     </main>  

@@ -1,16 +1,16 @@
 import React, {Component} from 'react';   
 
 
-const LoggedinHeader = ( {email, role} ) =>{ 
+const LoggedinHeader = ( {email, nameid, role} ) =>{ 
      
 
-    if(email && role){
+    if(email && role && nameid){
         return (
                 
             <React.Fragment>
                     <div className="row">
                         <div className="col-md-12 text-right"> 
-                            <span className="badge badge-success"> Hello, {email} [{role}]  </span> 
+                            <span className="badge badge-success"> Hello, {email} [{role}] - {nameid} </span> 
                         </div>
                     </div> 
             </React.Fragment> 

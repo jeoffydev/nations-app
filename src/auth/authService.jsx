@@ -29,7 +29,7 @@ export function authAdminAccess(props){
 
 export function getCurrentUser(){ 
     try{
-        const jwt = localStorage.getItem('token');
+        const jwt = localStorage.getItem('token'); 
         return jwtDecode(jwt);
     }
     catch(e){

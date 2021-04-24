@@ -23,12 +23,12 @@ class Admin extends Component{
     }
     render(){ 
 
-        const {email, role } = this.props.itemState;    
+        const {email, nameid, role } = this.props.itemState;    
         
         return (
             <React.Fragment>  
                 <div className="container">  
-                                <LoggedinHeader email={email} role={role} />
+                                <LoggedinHeader email={email} role={role} nameid={nameid} />
                                 <Navbar /> 
                                 <Switch>   
                                     <Route path="/admin/users"   render={ (props)=> <Users itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   

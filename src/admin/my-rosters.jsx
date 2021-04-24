@@ -15,11 +15,11 @@ class MyRosters extends Component{
     }
 
     render(){  
-        const {email, role } = this.props.itemState;    
+        const {email, nameid, role } = this.props.itemState;    
         
         return ( 
             <React.Fragment> 
-                    <LoggedinHeader email={email} role={role} />
+                    <LoggedinHeader email={email} role={role} nameid={nameid} />
                     <Navbar />
                     <main className="container whitebg text-left body-content">
                         

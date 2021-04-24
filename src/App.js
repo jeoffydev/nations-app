@@ -18,20 +18,21 @@ class App extends Component{
   
   state ={
     email : '',
+    nameid : '',
     role: ''
   }
   componentDidMount(){ 
-    const { email, role } = this.state;    
+    const { email, nameid, role } = this.state;    
     try{
-        const {email, role} = getCurrentUser();  
-        this.setState({ email, role  });   
+        const {email, nameid, role} = getCurrentUser();  
+        this.setState({ email, nameid, role  });   
     }
     catch(e){  } 
 }
    
   render(){
     
-    const {email, role } = this.state;    
+    const {email, nameid, role } = this.state;    
     
     return (
         <div className="App container">  
