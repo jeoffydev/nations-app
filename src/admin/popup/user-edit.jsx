@@ -8,11 +8,20 @@ import axiosApiInstance from '../../auth/httpService';
 
 
 class UserEdit extends Form{
-    
+    constructor(props){
+        super(props);
+
+        
+         
+    } 
+
+     
+     
     state = {
         dataUsers : {},
         data: { 
-            fullName: '' 
+            fullName: '',
+            id: '' 
         },   
         instruments: {},
         insSel: [],
@@ -21,14 +30,11 @@ class UserEdit extends Form{
 
     //Joi schema
     schema = { 
-        fullName : Joi.string().required().min(4) 
+        fullName : Joi.string().required().min(4),
+        id : Joi.string().required()  
     }
 
-    constructor(){
-        super();
-        
-    } 
-    
+   
 
     componentDidMount(){   
          //Get Instruments in DB
@@ -47,9 +53,40 @@ class UserEdit extends Form{
         }  
         this.setState( { insSel });
         //console.log("insSel", insSel);
+
+
+        //User edit 
+        const { data  } = this.state;
+        const {item  } = this.props;  
+
+        //User Edit
+        data.fullName = this.props.item.fullname;
+        data.id = this.props.item.id;
+        this.setState({data});
+
+        
+    }
+/*
+    formValidate = e => { 
+        e.preventDefault();
+        console.log("VALIDATE"); 
     }
 
-   
+    updateChange = e =>{
+
+        //console.log(this.state.data);
+        console.log("Change");
+        const { currentTarget: input } = e;
+        const data = {...this.state.data};
+        console.log(input.name + " = " + input.value);
+        //console.log(data);
+
+        data[input.name] = input.value; 
+        this.setState({data});
+         
+       
+
+    } */
 
     doSubmit = async () =>{ 
         const { loginError, data,  insSel} = this.state;
@@ -59,9 +96,11 @@ class UserEdit extends Form{
     
     render(){ 
 
-        const {instruments, insSel  } = this.state;
+        const {instruments, insSel, data  } = this.state;
         const {item, name } = this.props;  
 
+       
+        
         //Display all Instruments
         var insArray = [];
         for (let value of Object.values(instruments)) { 
@@ -79,6 +118,7 @@ class UserEdit extends Form{
         ) 
 
         return (
+
             <React.Fragment>
                 <p> <button type="button" className="btn btn-sm btn-dark " data-toggle="modal" data-target={'#' +name+ 'Modal' + item.id}> Edit </button> </p>
 
@@ -93,18 +133,32 @@ class UserEdit extends Form{
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <form className="form-signin" onSubmit={this.handleSubmit} noValidate>  
-                                    {this.renderInputEditReadOnly('email', 'Email Address', 'email', item.email )}
-                                    {this.renderInputEdit('fullName', 'Full Name', 'text', item.fullname )}
+
+                                {/*<form className="form-signin" onSubmit={this.formValidate} noValidate>  
+                                    <div className="form-group">
+                                        <label htmlFor="FullName">Full Name</label>
+                                        <input type="text" 
+                                        name="fullName"
+                                        value={data.fullName} 
+                                        className="form-control" 
+                                        onChange={this.updateChange}
+                                        />  
+                                    </div>
+                                    <button type="submit"   className="btn btn-primary"> Update </button>
+                                </form>*/}
+
+
+                                    <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
+                                    {this.renderInputEdit('id', '', 'hidden', item.id )} 
+                                    {this.renderInputEditReadOnly('email', 'Email Address', 'email', item.email )} 
+                                    {this.renderInputEdit('fullName', 'Full Name', 'text', data.fullName  )}
 
                                     <h3>Skills &amp; Instruments</h3>
                                     <ul className="list-group">     
                                         {instrumentList}
-                                    </ul>
-
-                                    
-                                    {this.renderButtonUpdate('Update')} 
-                                </form>
+                                    </ul> 
+                                    {this.renderButton('Update')} 
+                                    </form>  
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> 
