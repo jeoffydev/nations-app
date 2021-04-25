@@ -7,11 +7,14 @@ import axiosApiInstance from '../auth/httpService';
 import UserAccordion from './dataList/user-accordion';
 
 
-class Users extends Component{
+
+class Users extends  Component{
 
     state = {
-        dataUsers : {} 
+        dataUsers : {}, 
     }
+ 
+
 
     constructor(){
         super();
@@ -32,6 +35,8 @@ class Users extends Component{
                 this.setState( { dataUsers : res.data });
         })  
     }
+
+   
 
     render(){ 
         const { dataUsers } = this.state;  

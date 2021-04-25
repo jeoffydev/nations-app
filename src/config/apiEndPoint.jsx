@@ -12,6 +12,9 @@ export function apiEndPoint(opts){
         case 'login':
             return urlApi + 'api/account/login';
           break;
+        case 'get-instrument':
+            return urlApi + 'api/instrument';
+          break;  
          
         default:
           // code block

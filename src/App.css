@@ -59,6 +59,13 @@ h1, h2, h3, h4, h5, h6{
   background-color: #04625D !important;
   border:0px none !important
 }
+.btn-dark{
+  background-color: #282c34 !important;
+  border:0px none !important
+}
+.img-thumbnail{
+  background-color: transparent !important;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

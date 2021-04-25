@@ -5,7 +5,8 @@ import Form from './form/form';
 import axios from 'axios'; 
 import { apiEndPoint } from './config/apiEndPoint';  
 import {getCurrentUser, login} from './auth/authService'; 
-import AlertMessage from './common/alert';
+import AlertMessage from './common/alert'; 
+import NationsLogo from './common/logo';
 
 class Home extends Form{
 
@@ -69,7 +70,8 @@ class Home extends Form{
                     <div className="col-md-4 text-left">
 
                     <div className="text-center mb-4">
-                            <img className="mb-4" src={"/logo-nations.png"}  className="img-thumbnail"    alt="logo"  />
+                            <NationsLogo classes="img-thumbnail" imgUrl="/nations-logo.png" />
+                           
                             <h1 className="h3 mb-3 font-weight-normal">Nations Roster App</h1>
                             <p>“Advancing the kingdom”. We exist to make disciples who in turn make disciples.</p>
                     </div>

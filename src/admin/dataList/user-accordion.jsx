@@ -1,5 +1,5 @@
-import React, {Component} from 'react';   
-
+import React, {Component} from 'react';  
+import UserEdit from './../popup/user-edit';
 
 const UserAccordion = ( {items } ) =>{  
 
@@ -20,11 +20,12 @@ const UserAccordion = ( {items } ) =>{
                     <div className="row">
                         <div className="col-md-4">
                                 <p> Full Name: <br /> {user.fullname}  </p>
-                                <p>  Email:<br />  {user.email} </p>
+                                <p>  Email:<br />  {user.email} </p> 
+                                <UserEdit item ={user} name="user" selectedInstrument={user.instruments} />    
                                  
                         </div>
                         <div className="col-md-8">
-                               <h3>Member's Intruments</h3> 
+                               <h3>Skills &amp; Member's Intruments</h3> 
                                <p>{user.instruments.length === 0 ? 'No instrument saved for this member ' : ''}</p>
                                <ul className="list-group">
                                 {user.instruments.map( (ins)=>
