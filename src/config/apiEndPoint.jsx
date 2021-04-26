@@ -15,6 +15,9 @@ export function apiEndPoint(opts){
         case 'get-instrument':
             return urlApi + 'api/instrument';
           break;  
+        case 'update-user-details':
+            return urlApi + 'api/Account/UpdateUserDetails';
+          break;  
          
         default:
           // code block

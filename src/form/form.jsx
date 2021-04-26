@@ -73,8 +73,7 @@ class Form extends Component{
             //Display in setState please
             delete errors[input.name];
         }
-        console.log(errors);
-       
+         
         const data = {...this.state.data};
         //get the name attribute of input textbox login
         //console.log(input.name + " = " + input.value);
@@ -83,48 +82,24 @@ class Form extends Component{
         this.setState({ data, errors }); 
     }
 
-    handeInstrumentChangeCheckBox = e =>{
-        /*const data = {...this.state.data};
-        console.log(e, data); */
- /*
-        const { currentTarget: input } = e;
-        const data = {...this.state.data};
- 
-        console.log(input.value);
-        
-        data[input.name] = input.value;  
-        this.setState({ data });  */
-
-        
+    //Handle Onchange for checkboxes
+    handeInstrumentChangeCheckBox = e =>{ 
 
         const { currentTarget: input } = e; 
          
         const target = e.target;
         var value = target.value;
-        console.log("value", value, " target.checked = ", target.checked  );
+        //console.log("value", value, " target.checked = ", target.checked  );
         
-        const {data, insSel, errors  } = this.state;
-        
-
+        const {data,  errors  } = this.state;  
         if(target.checked){
-             insSel.push( parseInt(value) );
+            data.membersInstrumentViewModels.push( parseInt(value) );
             //data[input.name]  = value;   
         }else{ 
-             insSel.splice(insSel.indexOf(value), 1);
-        }  
-        
-        
-
-        console.log(insSel, errors);
-         
-        this.setState({ insSel }); 
-       /*
-       if(target.checked){
-            this.state.hobbies[value] = value;   
-        }else{
-            this.state.hobbies.splice(value, 1);
-        }
-        */
+            data.membersInstrumentViewModels.splice(data.membersInstrumentViewModels.indexOf(value), 1);
+        }    
+        this.setState({ data }); 
+       
     }
 
     renderButton = label =>{

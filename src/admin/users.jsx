@@ -49,7 +49,7 @@ class Users extends  Component{
                         <div className="row">
                             <div className="col-md-12">
                                 <h2> <i className="fa fa-users"></i> Users </h2> 
-                                <UserAccordion items={dataUsers}  />
+                                {dataUsers ?  <UserAccordion items={dataUsers}  /> : 'Loading...' }
                             </div>
                         </div> 
                     </main>  

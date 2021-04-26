@@ -10,7 +10,7 @@ async config => {
     config.headers = { 
         'Authorization': `Bearer ${getJwt()}`,
         'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
     }
     return config;
 },
@@ -28,7 +28,7 @@ axiosApiInstance.interceptors.response.use((response) => {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + getJwt();
         return axiosApiInstance(originalRequest);
     }
-    window.location.href = '/';
+     window.location.href = '/';
     return Promise.reject(error);
 });
 
