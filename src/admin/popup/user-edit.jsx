@@ -6,13 +6,14 @@ import Joi from 'joi-browser';
 import { apiEndPoint } from '../../config/apiEndPoint'; 
 import axiosApiInstance from '../../auth/httpService'; 
 
-import {PopupHeader, EditButton} from './popup-helper';
+import {PopupHeader, EditButton} from './popup-helper';  
+import { arrayToJSONObject } from './../../config/codehelper';
 
 class UserEdit extends Form{
     constructor(props){
         super(props);
 
-        
+     
          
     } 
 
@@ -62,7 +63,7 @@ class UserEdit extends Form{
         //User Edit
         data.fullName = this.props.item.fullname;
         data.id = this.props.item.id;
-        //data.membersInstrumentViewModels = insSel;
+        data.membersInstrumentViewModels = insSel;
         this.setState({data});
 
        
@@ -72,19 +73,29 @@ class UserEdit extends Form{
 
     doSubmit = async () =>{ 
         const {   data } = this.state;
-        console.log(  data );
         
+        //Stringify to json
         const dataObj = {
             "fullName" : data.fullName,
-            "id": data.id 
+            "id": data.id,
+            "membersInstrumentViewModels":  arrayToJSONObject(data.membersInstrumentViewModels )
         }
-       console.log(apiEndPoint('update-user-details'));
+ 
         axiosApiInstance.put(apiEndPoint('update-user-details'),  dataObj )
         .then(res => {
-            console.log(res.data);  
+            //console.log(res.data);   
+            const updateData  = res.data;
+            const item = {...this.props.item};
+             
+            item.fullname =  data.fullName;
             
-       })  
+            
+            console.log(item);   
+            //this.setState({data : updateData});
+       }) 
     }
+
+    
     
     
     render(){ 

@@ -93,11 +93,11 @@ class Form extends Component{
         
         const {data,  errors  } = this.state;  
         if(target.checked){
-            data.membersInstrumentViewModels.push( parseInt(value) );
+            data.membersInstrumentViewModels.push(  parseInt(value) );
             //data[input.name]  = value;   
         }else{ 
             data.membersInstrumentViewModels.splice(data.membersInstrumentViewModels.indexOf(value), 1);
-        }    
+        }   
         this.setState({ data }); 
        
     }
