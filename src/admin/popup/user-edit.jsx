@@ -9,6 +9,8 @@ import axiosApiInstance from '../../auth/httpService';
 import {PopupHeader, EditButton} from './popup-helper';  
 import { arrayToJSONObject } from './../../config/codehelper';
 
+import UserAccordion from './../dataList/user-accordion';
+
 class UserEdit extends Form{
     constructor(props){
         super(props);
@@ -83,26 +85,28 @@ class UserEdit extends Form{
  
         axiosApiInstance.put(apiEndPoint('update-user-details'),  dataObj )
         .then(res => {
-            //console.log(res.data);   
+            console.log(res.data);   
             const updateData  = res.data;
-            const item = {...this.props.item};
+            
+            
+            dataObj.email = updateData.email;   
+            console.log(dataObj);
+            
+            
              
-            item.fullname =  data.fullName;
-            
-            
-            console.log(item);   
-            //this.setState({data : updateData});
        }) 
     }
 
+   
     
     
     
     render(){ 
-
+        
         const {instruments,   data  } = this.state;
         const {item, name } = this.props;   
         
+
         //Display all Instruments
         var insArray = [];
         for (let value of Object.values(instruments)) { 
@@ -129,7 +133,7 @@ class UserEdit extends Form{
                 <div className="modal fade" id={name+ 'Modal' + item.id} tabIndex="-1" role="dialog" aria-labelledby="popModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
-                            <PopupHeader idname="user" label={item.fullname} /> 
+                            <PopupHeader idname="user" label={data.fullName} /> 
                             <div className="modal-body"> 
 
                                     <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 

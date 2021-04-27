@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import UserEdit from './../popup/user-edit';
 
 const UserAccordion = ( {items } ) =>{  
-
+    console.log("eto items", items)
     var userArray = [];
     for (let value of Object.values(items)) { 
         var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email, 'instruments':  value.membersInstrumentViewModels}
@@ -40,14 +40,14 @@ const UserAccordion = ( {items } ) =>{
         </div> 
     ) 
 
-
-    return (
-                
-        <React.Fragment>
-              {userList} 
-        </React.Fragment> 
-    ) 
-
+    
+        return (
+                    
+            <React.Fragment>
+                {userList} 
+            </React.Fragment> 
+        ) 
+     
 } 
 
 
