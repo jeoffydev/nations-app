@@ -8,8 +8,7 @@ import axiosApiInstance from '../../auth/httpService';
 
 import {PopupHeader, EditButton} from './popup-helper';  
 import { arrayToJSONObject } from './../../config/codehelper';
-
-import UserAccordion from './../dataList/user-accordion';
+ 
 
 class UserEdit extends Form{
     constructor(props){
