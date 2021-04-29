@@ -11,6 +11,7 @@ import Joi from 'joi-browser';
 
 import {PopupHeader, EditButton} from './popup/popup-helper';  
 import { arrayToJSONObject } from './../config/codehelper';
+import ListInstruments from './popup/list-instruments';
 
 class Users extends  Form{
 
@@ -51,9 +52,7 @@ class Users extends  Form{
         axiosApiInstance.get(apiEndPoint('get') )
             .then(res => {
                 console.log(res.data);   
-
-                this.setState( { dataUsers : res.data }); 
-
+                this.setState( { dataUsers : res.data });  
         })  
 
         //Get Instruments in DB
@@ -62,12 +61,7 @@ class Users extends  Form{
             console.log(res.data);  
             this.setState( { instruments : res.data });
         }) 
-
-        
-
-
-
-
+ 
 
 
     }
@@ -84,6 +78,7 @@ class Users extends  Form{
             userArray.push(arrayPush);
         } 
         console.log(userArray, "here")
+ 
         
         const {instruments,   data  } = this.state;
         const {item, name } = this.props;   
@@ -94,16 +89,8 @@ class Users extends  Form{
         for (let value of Object.values(instruments)) { 
             var arrayPush = {'id': value.id, 'instrumentName': value.instrumentName, 'instrumentDescription': value.instrumentDescription }
             insArray.push(arrayPush);
-        } 
-        //Display all Instruments in list
-        const instrumentList = insArray.map( (ins) =>    
-            <li className="list-group-item" key={ins.id}>  
-                <div className="form-check">
-                    {data.membersInstrumentViewModels.indexOf(ins.id) !== -1   ? this.InputCheckBox('instrumentCheckBox', 'check' + ins.id, 'checkbox', ins.instrumentName, ins.id, true)   :  this.InputCheckBox('instrumentCheckBox', 'check' + ins.id, 'checkbox', ins.instrumentName, ins.id, false) } 
-                   
-                </div>
-            </li>
-        ) 
+        }  
+         
         
         const userList = userArray.map( (user) =>  
             <div className="collapse-div-container" key={user.id}>
@@ -134,9 +121,9 @@ class Users extends  Form{
                                                             {this.renderInputEdit('fullName', 'Full Name', 'text', user.fullname  )}
 
                                                             <h3>Skills &amp; Instruments</h3>
-                                                            <ul className="list-group">     
-                                                                {instrumentList}
-                                                            </ul> 
+                                                            
+                                                            <ListInstruments instrumentsArray={insArray} myItems ={user.instruments} onChange={this.handeInstrumentChangeCheckBox} />
+                                                           
                                                             {this.renderButton('Update')} 
                                                         </form>  
                                                 </div>
