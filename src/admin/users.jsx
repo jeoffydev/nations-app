@@ -3,16 +3,13 @@ import {authAdminAccess } from '../auth/authService';
 
 //Import these 2 for api and http post
 import { apiEndPoint } from '../config/apiEndPoint'; 
-import axiosApiInstance from '../auth/httpService'; 
-import UserEdit from './popup/user-edit';
+import axiosApiInstance from '../auth/httpService';  
 
 import Form from './../form/form'; 
 import Joi from 'joi-browser'; 
 
 import {PopupHeader, EditButton} from './popup/popup-helper';  
-import { arrayToJSONObject } from './../config/codehelper';
-import ListInstruments from './popup/list-instruments';
-import { InputCheckBox } from './../form/input';
+import { arrayToJSONObject } from './../config/codehelper'; 
 
 class Users extends  Form{
 
@@ -50,22 +47,11 @@ class Users extends  Form{
 
         //Only admin access only
         authAdminAccess(this.props.itemProps); 
-        //Get users for admin only
-        /*axiosApiInstance.get(apiEndPoint('get') )
-            .then(res => {
-                //console.log("res.data1", res.data);   
-                this.getUserDetails(res.data);
-                //console.log("this.getUserDetails(res.data)", this.getUserDetails(res.data));
-
-                this.setState( { dataUsers : res.data });  
-        })  */
+        
 
         axiosApiInstance.get(apiEndPoint('get') ) 
         .then(res => {
-            //console.log("res.data1", res.data);   
-            //this.getUserDetails(res.data);
-            //console.log("this.getUserDetails(res.data)", this.getUserDetails(res.data));
-
+            
             this.setState( { dataUsers : res.data });  
         })   
 
@@ -80,7 +66,7 @@ class Users extends  Form{
                 
 
     handleUserDetails(user, insSel){
-            console.log("CLICKED", user);
+             
                 const { data  } = this.state;
 
                 data.fullName = user.fullname;
@@ -90,7 +76,7 @@ class Users extends  Form{
 
     }
 
-
+    //Do submit all the forms
     doSubmit = async () =>{ 
         const {   data, dataUsers,  instruments} = this.state; 
 
@@ -145,7 +131,6 @@ class Users extends  Form{
             var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email, 'instruments':  value.membersInstrumentViewModels}
             userArray.push(arrayPush);
         } 
-        
          
  
         //Display all Instruments
@@ -153,9 +138,7 @@ class Users extends  Form{
         for (let value of Object.values(instruments)) { 
             var arrayPush = {'id': value.id, 'instrumentName': value.instrumentName, 'instrumentDescription': value.instrumentDescription }
             insArray.push(arrayPush);
-        }  
-        
-
+        }   
         
         const userList = userArray.map( (user) =>   
             {   
