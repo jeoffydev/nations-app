@@ -52,7 +52,7 @@ class Form extends Component{
         console.log(errors);
         this.setState({ errors : errors || {} });
         if (errors)  return;  
-
+        
         this.doSubmit();
  
     }
@@ -98,6 +98,8 @@ class Form extends Component{
         }else{ 
             data.membersInstrumentViewModels.splice(data.membersInstrumentViewModels.indexOf(value), 1);
         }   
+        console.log("value", data.membersInstrumentViewModels );
+        
         this.setState({ data }); 
        
     }

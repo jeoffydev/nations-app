@@ -76,72 +76,19 @@ class Users extends  Form{
             this.setState( { instruments : res.data });
         }); 
     }
-
-                
-
-    handleUserDetails(user, insSel){
-            console.log("CLICKED", user);
-                const { data  } = this.state;
-
-                data.fullName = user.fullname;
-                data.id = user.id;
-                data.membersInstrumentViewModels = insSel;
-                this.setState({data});
-
-    }
-
-
-    doSubmit = async () =>{ 
-        const {   data, dataUsers } = this.state;
-
-       
-
-         //Save to restore 
-         //this.setState({data});
-
-         console.log("Submit data1", data);
-
-         const selectedUser = [...this.state.dataUsers];
-
-         console.log("Submit data2", selectedUser);
-         
-         //this.setState({data: selectedUser});
-
-         const index = selectedUser.indexOf(data); 
-         //selectedUser[index] = {...data}; 
-         //this.setState({dataUsers : selectedUser});
-          
-         
-         //console.log("Submit data", selectedUser);
-        
-        //Stringify to json
-        const dataObj = {
-            "fullName" : data.fullName,
-            "id": data.id,
-            "membersInstrumentViewModels":  arrayToJSONObject(data.membersInstrumentViewModels )
-        } 
- 
-        axiosApiInstance.put(apiEndPoint('update-user-details'),  dataObj )
-        .then(res => {
-            console.log("res.data", res.data);   
-             
-       })  
-
-        
-        
-       
+    
+    getUserDetails = (user)=>{
+        console.log(user)
     }
     
-    
+   
 
     render(){ 
         const { dataUsers  } = this.state;   
         const {instruments,   data  } = this.state;
         const {item, name } = this.props;   
 
-        console.log("LOAD THIS AGAIN ", data)
-        
-       
+        console.log(data);
         var userArray = [];
         for (let value of Object.values(dataUsers)) { 
             var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email, 'instruments':  value.membersInstrumentViewModels}
@@ -165,20 +112,15 @@ class Users extends  Form{
                 var insSel = [];
                 for (let value of user.instruments) {  
                     insSel.push(value.instrumentId);
-                }    
-
+                }   
                 
-
-               
-
-
                  //Display all Instruments in list
-                const instrumentList = insArray.map( (ins) => {
+                    const instrumentList = insArray.map( (ins) => {
                         
-                            return (  
-                                <li className="list-group-item" key={ins.id}>   
+                            return (
+                                <li className="list-group-item" key={ins.id}>  
                                 <div className="form-check">
-                                    {data.membersInstrumentViewModels.indexOf(ins.id) !== -1   ? this.InputCheckBox('membersInstrumentViewModels', 'check' + ins.id, 'checkbox', ins.instrumentName, ins.id, true)   :  this.InputCheckBox('membersInstrumentViewModels', 'check' + ins.id, 'checkbox', ins.instrumentName, ins.id, false) } 
+                                    {insSel.indexOf(ins.id) !== -1   ? this.InputCheckBox('membersInstrumentViewModels', 'check' + ins.id, 'checkbox', ins.instrumentName, ins.id, true)   :  this.InputCheckBox('membersInstrumentViewModels', 'check' + ins.id, 'checkbox', ins.instrumentName, ins.id, false) } 
                                 
                                 </div>
                                 </li>
@@ -200,9 +142,7 @@ class Users extends  Form{
                                     <div className="col-md-4">
                                             <p> Full Name: <br /> {user.fullname}  </p>
                                             <p>  Email:<br />  {user.email} </p> 
-                                            <span onClick={()=>this.handleUserDetails(user, insSel)} >
-                                                <EditButton idname={name} id={user.id}  />
-                                            </span>
+                                            <EditButton idname={name} id={user.id}  />
 
                                              
                         
@@ -211,14 +151,14 @@ class Users extends  Form{
                                                 <div className="modal-dialog" role="document">
                                                     <div className="modal-content">
 
-                                                        <PopupHeader idname="user" label={data.fullName} /> 
+                                                        <PopupHeader idname="user" label={data.fullname} /> 
 
                                                         <div className="modal-body"> 
 
                                                                 <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
-                                                                    {this.renderInputEdit('id', '', 'text', data.id )} 
+                                                                    {this.renderInputEdit('id', '', 'text', user.id )} 
                                                                     {this.renderInputEditReadOnly('email', 'Email Address', 'email', user.email )} 
-                                                                    {this.renderInputEdit('fullName', 'Full Name', 'text', data.fullName  )}
+                                                                    {this.renderInputEdit('fullName', 'Full Name', 'text', user.fullname  )}
 
                                                                     <h3>Skills &amp; Instruments</h3> 
                                                                     
