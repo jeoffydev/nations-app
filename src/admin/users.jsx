@@ -92,43 +92,43 @@ class Users extends  Form{
 
 
     doSubmit = async () =>{ 
-        const {   data, dataUsers } = this.state;
+        const {   data, dataUsers,  instruments} = this.state; 
 
-       
-
-         //Save to restore 
-         //this.setState({data});
-
-         console.log("Submit data1", data);
-
-         const selectedUser = [...this.state.dataUsers];
-
-         console.log("Submit data2", selectedUser);
+         //Save to restore  
+         const selectedUser = [...this.state.dataUsers];  
          
-         //this.setState({data: selectedUser});
-
-         const index = selectedUser.indexOf(data); 
-         //selectedUser[index] = {...data}; 
-         //this.setState({dataUsers : selectedUser});
-          
-         
-         //console.log("Submit data", selectedUser);
+         //Update name only
+         const finUser = selectedUser.map(obj => { 
+                if(obj.id === data.id){
+                    obj.fullName = data.fullName
+                }   
+                return obj;
+            } 
+         ); 
         
         //Stringify to json
         const dataObj = {
             "fullName" : data.fullName,
             "id": data.id,
             "membersInstrumentViewModels":  arrayToJSONObject(data.membersInstrumentViewModels )
-        } 
- 
+        }  
+        //Send update request
         axiosApiInstance.put(apiEndPoint('update-user-details'),  dataObj )
         .then(res => {
-            console.log("res.data", res.data);   
+            
+            try{
+                //get the users again
+                axiosApiInstance.get(apiEndPoint('get') ) 
+                .then(res => { 
+                    this.setState( { dataUsers : res.data });  
+                }) 
+            }
+            catch(e){
+                return null;
+            } 
+           
              
        })  
-
-        
-        
        
     }
     
@@ -139,8 +139,6 @@ class Users extends  Form{
         const {instruments,   data  } = this.state;
         const {item, name } = this.props;   
 
-        console.log("LOAD THIS AGAIN ", data)
-        
        
         var userArray = [];
         for (let value of Object.values(dataUsers)) { 
@@ -148,7 +146,7 @@ class Users extends  Form{
             userArray.push(arrayPush);
         } 
         
-        console.log(userArray);
+         
  
         //Display all Instruments
         var insArray = [];
@@ -165,12 +163,7 @@ class Users extends  Form{
                 var insSel = [];
                 for (let value of user.instruments) {  
                     insSel.push(value.instrumentId);
-                }    
-
-                
-
-               
-
+                }     
 
                  //Display all Instruments in list
                 const instrumentList = insArray.map( (ins) => {
@@ -202,9 +195,7 @@ class Users extends  Form{
                                             <p>  Email:<br />  {user.email} </p> 
                                             <span onClick={()=>this.handleUserDetails(user, insSel)} >
                                                 <EditButton idname={name} id={user.id}  />
-                                            </span>
-
-                                             
+                                            </span> 
                         
                                             {/* Model here */} 
                                             <div className="modal fade" id={name+ 'Modal' + user.id} tabIndex="-1" role="dialog" aria-labelledby="popModalLabel" aria-hidden="true">
@@ -255,10 +246,7 @@ class Users extends  Form{
             }
             
             
-        )  
-
-
-
+        )   
          
         return (  
             <React.Fragment> 
