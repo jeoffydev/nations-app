@@ -9,7 +9,8 @@ import Form from './../form/form';
 import Joi from 'joi-browser'; 
 
 import {PopupHeader, EditButton} from './popup/popup-helper';  
-import { arrayToJSONObject } from './../config/codehelper'; 
+import { arrayToJSONObject } from './../config/codehelper';   
+import ChangePassword from './popup/changepassword';
 
 class Users extends  Form{
 
@@ -23,6 +24,8 @@ class Users extends  Form{
         instruments: {},
         insSel: [],
         errors : {},
+        pw1: '',
+        pw2: ''
         
     }
  
@@ -117,11 +120,50 @@ class Users extends  Form{
        })  
        
     }
+
+
+    ChangePassword = (e) => {
+        const { currentTarget: input } = e; 
+        const {  pw1, pw2 } = this.state; 
+         
+        const target = e.target;
+        var value = target.value;
+        console.log("value", value, " target.checked = ", target.checked   );
+        
+
+        if(input.name === "pw1"){
+            const pw1 = input.value;
+            this.setState({pw1})
+        }
+        if(input.name === "pw2"){
+            const pw2 = input.value;
+            this.setState({pw2})
+        }
+
+        
+         
+    }
+
+    submitPassword = e => {
+        e.preventDefault();
+
+        const {  pw1, pw2 } = this.state; 
+
+        console.log("pw1 = " +  pw1 + " / pw2 = " + pw2 );
+        if(pw1 && pw2){
+            if(pw1 === pw2){
+                console.log("they are the same");
+            }else{
+                console.log("PW error");
+            }
+        }
+        
+    }
     
     
 
     render(){ 
-        const { dataUsers  } = this.state;   
+        const { dataUsers, pw1, pw2  } = this.state;   
         const {instruments,   data  } = this.state;
         const {item, name } = this.props;   
 
@@ -177,7 +219,8 @@ class Users extends  Form{
                                             <p> Full Name: <br /> {user.fullname}  </p>
                                             <p>  Email:<br />  {user.email} </p> 
                                             <span onClick={()=>this.handleUserDetails(user, insSel)} >
-                                                <EditButton idname={name} id={user.id}  />
+                                                <EditButton idname={name} id={user.id} label="Edit" /> 
+                                                <EditButton idname="ChangePassword" id={user.id} label="Change Password" /> 
                                             </span> 
                         
                                             {/* Model here */} 
@@ -185,12 +228,12 @@ class Users extends  Form{
                                                 <div className="modal-dialog" role="document">
                                                     <div className="modal-content">
 
-                                                        <PopupHeader idname="user" label={data.fullName} /> 
+                                                        <PopupHeader idname="user" label={'Edit ' + data.fullName} /> 
 
                                                         <div className="modal-body"> 
 
                                                                 <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
-                                                                    {this.renderInputEdit('id', '', 'text', data.id )} 
+                                                                    {this.renderInputEdit('id', '', 'hidden', data.id )} 
                                                                     {this.renderInputEditReadOnly('email', 'Email Address', 'email', user.email )} 
                                                                     {this.renderInputEdit('fullName', 'Full Name', 'text', data.fullName  )}
 
@@ -208,6 +251,42 @@ class Users extends  Form{
                                                 </div>
                                             </div>
                                             {/* Model here */} 
+
+
+
+
+                                            {/* Passwrd Modal here */} 
+                                            <div className="modal fade" id={'ChangePasswordModal' + user.id} tabIndex="-1" role="dialog" aria-labelledby="popModalLabel" aria-hidden="true">
+                                                <div className="modal-dialog" role="document">
+                                                    <div className="modal-content"> 
+
+                                                        <div className="modal-body"> 
+
+                                                            <PopupHeader idname="user" label={'Change Password for ' + data.fullName} /> 
+                                                            {pw1} - {pw2}
+                                                            <form className="form-signin" onSubmit={this.submitPassword} noValidate> 
+                                                                <div className="form-group">
+                                                                    <label htmlFor="exampleInputPassword1">Password</label>
+                                                                    <input type="password" name="pw1" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.ChangePassword} />
+                                                                </div> 
+                                                                <div className="form-group">
+                                                                    <label htmlFor="exampleInputPassword1">Password</label>
+                                                                    <input type="password" name="pw2" className="form-control" id="exampleInputPassword1" placeholder="Confirm Password" onChange={this.ChangePassword} />
+                                                                </div> 
+                                                                <button type="submit" className="btn btn-primary" >Change Password</button>
+                                                            </form>
+                                                                                                    
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* Modal here */} 
+
+
+                                            
                                             
                                     </div>
                                     <div className="col-md-8">
