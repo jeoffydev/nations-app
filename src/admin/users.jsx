@@ -24,8 +24,12 @@ class Users extends  Form{
         instruments: {},
         insSel: [],
         errors : {},
-        pw1: '',
-        pw2: ''
+        password: {
+            id: '',
+            pw1: '',
+            pw2: '',
+            pwError: ''
+        } 
         
     }
  
@@ -46,8 +50,9 @@ class Users extends  Form{
    
 
     componentDidMount(){   
-        const { dataUsers } = this.state;
-
+        const { dataUsers, password } = this.state; 
+        password.pwError = false;
+        
         //Only admin access only
         authAdminAccess(this.props.itemProps); 
         
@@ -114,48 +119,68 @@ class Users extends  Form{
             }
             catch(e){
                 return null;
-            } 
-           
-             
+            }  
        })  
        
     }
 
 
-    ChangePassword = (e) => {
+    ChangePassword = (e, id) => {
         const { currentTarget: input } = e; 
-        const {  pw1, pw2 } = this.state; 
+        const {  password } = this.state; 
          
         const target = e.target;
         var value = target.value;
         console.log("value", value, " target.checked = ", target.checked   );
-        
+        console.log("id", id)
+        if(id){
+            password.id = id;
+            this.setState({password})
+        }
 
         if(input.name === "pw1"){
-            const pw1 = input.value;
-            this.setState({pw1})
+            password.pw1 = input.value;
+            this.setState({password})
         }
         if(input.name === "pw2"){
-            const pw2 = input.value;
-            this.setState({pw2})
+            password.pw2 = input.value;
+            this.setState({password})
         }
 
-        
+        console.log(password);
          
     }
 
     submitPassword = e => {
         e.preventDefault();
 
-        const {  pw1, pw2 } = this.state; 
+        const {  password } = this.state;  
+        //console.log("pw1 = " +  pw1 + " / pw2 = " + pw2 );
+        if(password.pw1 && password.pw2){
+            if(password.pw1 === password.pw2){
+                
+                const dataObj = { 
+                    "id": password.id,
+                    "password":  password.pw1
+                }   
+                console.log(dataObj)
+                //Send update password request
+                axiosApiInstance.put(apiEndPoint('update-user-password'), dataObj )
+                    .then(res => { 
+                        try{
+                            console.log(res);
+                        }
+                        catch(e){
+                            return null;
+                        }  
+                })  
 
-        console.log("pw1 = " +  pw1 + " / pw2 = " + pw2 );
-        if(pw1 && pw2){
-            if(pw1 === pw2){
-                console.log("they are the same");
+                password.pwError = false; 
+                console.log("they are the same " + password.id);
             }else{
-                console.log("PW error");
+                password.pwError = true; 
             }
+            this.setState({password}) 
         }
         
     }
@@ -164,7 +189,7 @@ class Users extends  Form{
 
     render(){ 
         const { dataUsers, pw1, pw2  } = this.state;   
-        const {instruments,   data  } = this.state;
+        const {instruments,   data, password  } = this.state;
         const {item, name } = this.props;   
 
        
@@ -263,15 +288,16 @@ class Users extends  Form{
                                                         <div className="modal-body"> 
 
                                                             <PopupHeader idname="user" label={'Change Password for ' + data.fullName} /> 
-                                                            {pw1} - {pw2}
+                                                            {password.pwError && <div className="alert alert-danger" role="alert"> Password didn't match </div>}
                                                             <form className="form-signin" onSubmit={this.submitPassword} noValidate> 
+                                                                 
                                                                 <div className="form-group">
                                                                     <label htmlFor="exampleInputPassword1">Password</label>
-                                                                    <input type="password" name="pw1" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.ChangePassword} />
+                                                                    <input type="password" name="pw1" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={(e)=>this.ChangePassword(e, user.id)} />
                                                                 </div> 
                                                                 <div className="form-group">
                                                                     <label htmlFor="exampleInputPassword1">Password</label>
-                                                                    <input type="password" name="pw2" className="form-control" id="exampleInputPassword1" placeholder="Confirm Password" onChange={this.ChangePassword} />
+                                                                    <input type="password" name="pw2" className="form-control" id="exampleInputPassword1" placeholder="Confirm Password" onChange={(e)=>this.ChangePassword(e, user.id)} />
                                                                 </div> 
                                                                 <button type="submit" className="btn btn-primary" >Change Password</button>
                                                             </form>

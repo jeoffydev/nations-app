@@ -28,7 +28,7 @@ axiosApiInstance.interceptors.response.use((response) => {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + getJwt();
         return axiosApiInstance(originalRequest);
     }
-     window.location.href = '/';
+    // window.location.href = '/';
     return Promise.reject(error);
 });
 

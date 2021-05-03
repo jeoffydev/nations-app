@@ -18,6 +18,9 @@ export function apiEndPoint(opts){
         case 'update-user-details':
             return urlApi + 'api/Account/UpdateUserDetails';
           break;  
+        case 'update-user-password':
+            return urlApi + 'api/Account/UpdateUserPassword';
+          break;
          
         default:
           // code block
