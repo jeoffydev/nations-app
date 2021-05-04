@@ -14,7 +14,19 @@ export function EditButton  ( props ) {
 
 } 
 
+export function AddButton  ( props ) { 
+    const {  idname,  id, label   } = props; 
+    return (
+            
+        <React.Fragment>
+            <p> 
+                <button type="button" className="btn   btn-dark " data-toggle="modal" data-target={'#' + idname + 'Modal' +  id}> {label} </button> 
+            </p>
+        </React.Fragment>
+      
+    )  
 
+} 
  
 
 

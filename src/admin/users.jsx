@@ -8,9 +8,10 @@ import axiosApiInstance from '../auth/httpService';
 import Form from './../form/form'; 
 import Joi from 'joi-browser'; 
 
-import {PopupHeader, EditButton} from './popup/popup-helper';  
+import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';  
 import { arrayToJSONObject } from './../config/codehelper';   
 import ChangePassword from './popup/changepassword';
+import AddUser from '../admin/add-user';
 
 class Users extends  Form{
 
@@ -343,13 +344,17 @@ class Users extends  Form{
                         <div className="row">
                             <div className="col-md-12">
                                 <h2> <i className="fa fa-users"></i> Users </h2> 
+                                 <AddUser />
                                 <div>
                                     {userList}  
                                 </div>
 
                             </div>
                         </div> 
-                    </main>  
+                    </main> 
+
+
+
            </ React.Fragment>
         )
     }
