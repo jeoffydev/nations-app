@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; 
 import Joi from 'joi-browser'; 
-import {Input, InputCheckBox, InputreadOnly} from './input';
+import {Input, InputCheckBox, InputreadOnly, Select} from './input';
 
 class Form extends Component{
 
@@ -136,6 +136,15 @@ class Form extends Component{
       ) 
       
     }
+
+    renderSelect = (name, label, type, values) =>{
+        //console.log(name, label, type);
+        const { data, errors } = this.state;
+        return (
+         <Select error={errors[name]} type={type}  name={name} label={label} values={values} onChange={this.handeLoginChange} /> 
+       ) 
+       
+     }
 
     renderInputEdit = (name, label, type, value ) =>{ 
         const { data, errors } = this.state;

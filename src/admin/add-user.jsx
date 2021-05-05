@@ -1,6 +1,6 @@
 import React, {Component} from 'react';   
-//import Form from './../form/form'; 
-//import Joi from 'joi-browser'; 
+import Form from './../form/form'; 
+import Joi from 'joi-browser'; 
 
 import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';
 
@@ -9,11 +9,11 @@ import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';
 import { apiEndPoint } from '../config/apiEndPoint'; 
 import axiosApiInstance from '../auth/httpService';  
 
-class AddUser extends Component{
+class AddUser extends Form{
 
 
     state = { 
-        
+        data: { fullName: "", email : "", password: "", confirmPassword: "", role: ""},
         errors : { },
         errordisplay: {},
         errorMsg: '',
@@ -25,60 +25,39 @@ class AddUser extends Component{
             errorReg: ''
         } 
         
-    }
-
-  /* data: { fullName: "", email : "", password: "", confirmPassword: ""},
+    } 
     schema = {
         fullName : Joi.string().required().label("Full name"),
         email : Joi.string().required().email().label("Email"),
         password: Joi.string().required().min(3).label("Password"),
-        confirmPassword : Joi.string().required().label('Confirm password')
-    } */
+        confirmPassword : Joi.string().required().label('Confirm password'),
+        role : Joi.string().required().label("User role"),
+    }  
 
     constructor(){
         super();
         
-    } 
-
-
+    }  
 
     componentDidMount(){   
         
     }
 
-    submitRegister = (e)=>{
-        e.preventDefault();
-
-    }
-
+     
     
     doSubmit = () =>{
-        const { data, errordisplay } = this.state;
-        console.log(data);
-        console.log("Register  submitted"); 
-
+        const { data, errordisplay } = this.state; 
+        //console.log(data);
         if(data){
               
-                    axiosApiInstance.post(apiEndPoint('add'),  data)
-                    .then(res => {
-                        console.log(res);
-                        //location.reload(); // refreshes the page 
-                      })
-                      .catch(error => {
-                         
-                        console.log(error.response.status);
-                      })
-                    /*
+                    axiosApiInstance.post(apiEndPoint('add'),  data)  
                     .then(response => {
-                         if (response.data.status == 200) {
-                            alert("Good");
-                          } else {
-                            alert("Ay");
-                          }
+                        console.log(response);
+                        window.location.reload();
                         
                      }) 
                      .catch(error => {
-
+                        console.log(error.response);
                         if(error){
                             const errordisplay = error.response.data;   
                             if(errordisplay.ConfirmPassword ){ 
@@ -88,15 +67,11 @@ class AddUser extends Component{
                             if(errordisplay.error ){ 
                                 const errorMsg = errordisplay.error;
                                 this.setState( { errorMsg  });  
-                            }   
-                        }
-                        
-                       
-                     }) */
-
-                     
+                            }  
+                        } 
+                     })  
                 
-        }
+        }  
        
 
 
@@ -134,7 +109,7 @@ class AddUser extends Component{
             console.log(errorMsgs)
             
         }
-        
+ 
          
     }
 
@@ -162,7 +137,7 @@ class AddUser extends Component{
                                     {errorMsg && <div className="alert alert-danger" role="alert"> {errorMsg} </div>}
 
 
-                                    <form className="form-signin" onSubmit={this.submitRegister} noValidate  >
+                                   { /* <form className="form-signin" onSubmit={this.submitRegister} noValidate  >
                                         <div className="form-group">
                                             <label htmlFor="fullName">Full Name</label>
                                             <input type="text" name="fullName" className="form-control" id="fullName"  onChange={this.ChangeThisForm}  />
@@ -180,15 +155,16 @@ class AddUser extends Component{
                                             <input type="password" name="confirmPassword" className="form-control" id="confirmPassword"   onChange={this.ChangeThisForm} />
                                         </div>
                                         <button type="submit" disabled={errorMsg ? true: ''} className="btn btn-primary">Register</button>
-                                    </form>
+        </form> */}
 
-                                    {/*<form onSubmit={this.handleSubmit}>
+                                <form onSubmit={this.handleSubmit}>
                                         {this.renderInput('fullName', 'Full Name', 'text')}
                                         {this.renderInput('email', 'Email Address', 'email')}
                                         {this.renderInput('password', 'Password', 'password')}
                                         {this.renderInput('confirmPassword', 'Confirm Password', 'password')}
+                                        {this.renderSelect('role', 'User Role', 'select', 'User,Admin')}
                                         {this.renderButton('Register')} 
-        </form>*/}
+                                </form> 
 
 
                                                                                                     
