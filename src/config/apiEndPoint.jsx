@@ -9,6 +9,9 @@ export function apiEndPoint(opts){
         case 'get':
             return urlApi + 'api/account';
           break;
+        case 'add':
+            return urlApi + 'api/account';
+          break;
         case 'login':
             return urlApi + 'api/account/login';
           break;
