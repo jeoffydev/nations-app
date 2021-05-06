@@ -20,6 +20,7 @@ class Users extends  Form{
         data: { 
             fullName: '',
             id: '', 
+            role: '',
             membersInstrumentViewModels: [] 
         },   
         instruments: {},
@@ -30,7 +31,8 @@ class Users extends  Form{
             pw1: '',
             pw2: '',
             pwError: ''
-        } 
+        },
+        adminstyle: '' 
         
     }
  
@@ -45,6 +47,7 @@ class Users extends  Form{
     schema = { 
         fullName : Joi.string().required().min(4),
         id : Joi.string().required(),  
+        role : Joi.string().required(),  
         membersInstrumentViewModels: Joi.array().required()  
     }
 
@@ -60,7 +63,7 @@ class Users extends  Form{
 
         axiosApiInstance.get(apiEndPoint('get') ) 
         .then(res => {
-            
+            console.log(res);
             this.setState( { dataUsers : res.data });  
         })   
 
@@ -80,6 +83,7 @@ class Users extends  Form{
 
                 data.fullName = user.fullname;
                 data.id = user.id;
+                data.role = user.role;
                 data.membersInstrumentViewModels = insSel;
                 this.setState({data});
 
@@ -105,6 +109,7 @@ class Users extends  Form{
         const dataObj = {
             "fullName" : data.fullName,
             "id": data.id,
+            "role": data.role,
             "membersInstrumentViewModels":  arrayToJSONObject(data.membersInstrumentViewModels )
         }  
         //Send update request
@@ -190,13 +195,13 @@ class Users extends  Form{
 
     render(){ 
         const { dataUsers, pw1, pw2  } = this.state;   
-        const {instruments,   data, password  } = this.state;
+        const {instruments,   data, password, adminstyle  } = this.state;
         const {item, name } = this.props;   
 
        
         var userArray = [];
         for (let value of Object.values(dataUsers)) { 
-            var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email, 'instruments':  value.membersInstrumentViewModels}
+            var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email, 'role': value.role, 'instruments':  value.membersInstrumentViewModels}
             userArray.push(arrayPush);
         } 
          
@@ -229,13 +234,15 @@ class Users extends  Form{
                             )
 
                         }   
-                    ) 
+                    ); 
+                    
+                    
 
                 return (
 
                     <div className="collapse-div-container" key={user.id}>
                         <a className="btn btn-primary btn-block teal" data-toggle="collapse" href={'#userCollapse'  + user.id} role="button" aria-expanded="false" aria-controls="userCollapse">
-                            {user.fullname} 
+                            {user.fullname} {user.role === "Admin" ? <span className="badge  badge-success pull-right"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary pull-right"> {user.role} </span>}
                         </a>  
                         <div className="collapse" id={'userCollapse'  + user.id}>
                             <div className="card card-body">
@@ -243,6 +250,7 @@ class Users extends  Form{
                                 <div className="row">
                                     <div className="col-md-4">
                                             <p> Full Name: <br /> {user.fullname}  </p>
+                                            <p> Role:  {user.role === "Admin" ? <span className="badge  badge-success"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary"> {user.role} </span>}   </p>
                                             <p>  Email:<br />  {user.email} </p> 
                                             <span onClick={()=>this.handleUserDetails(user, insSel)} >
                                                 <EditButton idname={name} id={user.id} label="Edit" /> 
@@ -262,6 +270,7 @@ class Users extends  Form{
                                                                     {this.renderInputEdit('id', '', 'hidden', data.id )} 
                                                                     {this.renderInputEditReadOnly('email', 'Email Address', 'email', user.email )} 
                                                                     {this.renderInputEdit('fullName', 'Full Name', 'text', data.fullName  )}
+                                                                    {this.renderSelect('role', 'User Role', 'select', 'User,Admin', user.role)}  
 
                                                                     <h3>Skills &amp; Instruments</h3> 
                                                                     

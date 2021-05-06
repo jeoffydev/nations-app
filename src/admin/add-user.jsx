@@ -1,6 +1,7 @@
 import React, {Component} from 'react';   
 import Form from './../form/form'; 
 import Joi from 'joi-browser'; 
+import swal from 'sweetalert';
 
 import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';
 
@@ -162,7 +163,7 @@ class AddUser extends Form{
                                         {this.renderInput('email', 'Email Address', 'email')}
                                         {this.renderInput('password', 'Password', 'password')}
                                         {this.renderInput('confirmPassword', 'Confirm Password', 'password')}
-                                        {this.renderSelect('role', 'User Role', 'select', 'User,Admin')}
+                                        {this.renderSelect('role', 'User Role', 'select', 'User,Admin', '')}
                                         {this.renderButton('Register')} 
                                 </form> 
 

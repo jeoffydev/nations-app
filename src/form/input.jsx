@@ -29,29 +29,26 @@ export function Input  ( props ) {
 
 export function Select  ( props ) {
      
-    const { name, type, label,  values, onChange, error  } = props;  
+    const { name, type, label,  values, valuex, onChange, error  } = props;  
     var res = values.split(","); 
 
+    var selected = '';
+    
     return (
             
         <React.Fragment>
             <div className="form-group">
                 <label htmlFor={name}>{label}</label>
-                <select className="form-control"  name={name}  onChange={onChange}   >
-                    <option>--Select Role --</option>
-                    {res.map( (role) => <option key={role} value={role}> {role}</option>)}
+                <select className="form-control"  name={name}  onChange={onChange}    >
+                    <option value="">--Select Role --</option>
+                    {res.map( (role) => { 
+                        return (
+                            <option key={role} value={role}   > {role}</option>
+                        )
+                    }
+                   )}
                    
-                </select>
-           
-            
-            {/*<div className="form-group">
-                <label htmlFor={name}>{label}</label>
-                <input type={type} 
-                name={name} 
-                value={value} 
-                onChange={onChange}  
-                className="form-control" 
-                id={name}   /> */}
+                </select> 
 
                  { error && <div className="alert alert-danger">{error}</div> }
             </div>

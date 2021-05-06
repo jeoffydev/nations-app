@@ -137,11 +137,11 @@ class Form extends Component{
       
     }
 
-    renderSelect = (name, label, type, values) =>{
+    renderSelect = (name, label, type, values, valuex) =>{
         //console.log(name, label, type);
         const { data, errors } = this.state;
         return (
-         <Select error={errors[name]} type={type}  name={name} label={label} values={values} onChange={this.handeLoginChange} /> 
+         <Select error={errors[name]} type={type}  name={name} label={label} values={values} valuex={valuex} onChange={this.handeLoginChange} /> 
        ) 
        
      }
