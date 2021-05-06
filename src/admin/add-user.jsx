@@ -1,7 +1,7 @@
 import React, {Component} from 'react';   
 import Form from './../form/form'; 
 import Joi from 'joi-browser'; 
-import swal from 'sweetalert';
+
 
 import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';
 

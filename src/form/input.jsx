@@ -30,26 +30,42 @@ export function Input  ( props ) {
 export function Select  ( props ) {
      
     const { name, type, label,  values, valuex, onChange, error  } = props;  
-    var res = values.split(","); 
-
+    var res = values.split(",");  
     var selected = '';
-    
+    var selectDropdown ='';
+
+    const mapSelect = res.map( (role) => { 
+                                return (
+                                    <option key={role} value={role}   > {role}</option>
+                                )
+                            }
+                        );
+    const defaultOption = <option value="">--Select Role --</option>              
+
+    if(valuex){
+        selectDropdown = (
+                <select className="form-control" value={valuex}  name={name}  onChange={onChange}    > 
+                        {defaultOption}
+                        {mapSelect} 
+                </select> 
+        )
+    }else{
+
+        selectDropdown = (
+            <select className="form-control"  name={name}  onChange={onChange}    > 
+                     {defaultOption}
+                    {mapSelect} 
+            </select> 
+        )
+
+    }
+     
     return (
             
         <React.Fragment>
             <div className="form-group">
-                <label htmlFor={name}>{label}</label>
-                <select className="form-control"  name={name}  onChange={onChange}    >
-                    <option value="">--Select Role --</option>
-                    {res.map( (role) => { 
-                        return (
-                            <option key={role} value={role}   > {role}</option>
-                        )
-                    }
-                   )}
-                   
-                </select> 
-
+                <label htmlFor={name}>{label}</label> 
+                   {selectDropdown} 
                  { error && <div className="alert alert-danger">{error}</div> }
             </div>
         </React.Fragment>

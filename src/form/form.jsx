@@ -76,7 +76,7 @@ class Form extends Component{
          
         const data = {...this.state.data};
         //get the name attribute of input textbox login
-        //console.log(input.name + " = " + input.value);
+         console.log(input.name + " = " + input.value);
         data[input.name] = input.value; 
        
         this.setState({ data, errors }); 

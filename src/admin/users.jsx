@@ -12,6 +12,7 @@ import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';
 import { arrayToJSONObject } from './../config/codehelper';   
 import ChangePassword from './popup/changepassword';
 import AddUser from '../admin/add-user';
+import swal from 'sweetalert';
 
 class Users extends  Form{
 
@@ -190,6 +191,47 @@ class Users extends  Form{
         }
         
     }
+
+    deleteUser = (id)=>{
+
+        const { dataUsers  } = this.state; 
+
+        swal({
+            title: "Are you sure you want to delete this user?",
+            text: "Once deleted, you will not be able to recover this user!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+
+                    const dataObj = { 
+                        "id": id,
+                    }   
+                     
+                    //Send delete request
+                    axiosApiInstance.post(apiEndPoint('delete-user'), dataObj   )
+                    .then(res => { 
+                        try{
+                            //console.log(res.data.value)
+                             this.setState( { dataUsers : res.data.value});  
+                        }
+                        catch(e){
+                            return null;
+                        }  
+                })  
+
+                swal("User has been deleted!", {
+                    icon: "success",
+                });
+                console.log(id);
+            } else {
+              swal("User is safe!");
+            }
+          });
+        
+    }
     
     
 
@@ -242,7 +284,7 @@ class Users extends  Form{
 
                     <div className="collapse-div-container" key={user.id}>
                         <a className="btn btn-primary btn-block teal" data-toggle="collapse" href={'#userCollapse'  + user.id} role="button" aria-expanded="false" aria-controls="userCollapse">
-                            {user.fullname} {user.role === "Admin" ? <span className="badge  badge-success pull-right"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary pull-right"> {user.role} </span>}
+                            {user.fullname} {user.role === "Admin" ? <span className="badge  badge-success pull-right"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary pull-right"> {user.role} </span>} <span className="margin-right pull-right" onClick={()=>this.deleteUser(user.id)}><i className="fa fa-trash"></i></span>
                         </a>  
                         <div className="collapse" id={'userCollapse'  + user.id}>
                             <div className="card card-body">
@@ -270,7 +312,7 @@ class Users extends  Form{
                                                                     {this.renderInputEdit('id', '', 'hidden', data.id )} 
                                                                     {this.renderInputEditReadOnly('email', 'Email Address', 'email', user.email )} 
                                                                     {this.renderInputEdit('fullName', 'Full Name', 'text', data.fullName  )}
-                                                                    {this.renderSelect('role', 'User Role', 'select', 'User,Admin', user.role)}  
+                                                                    {this.renderSelect('role', 'User Role', 'select', 'User,Admin', data.role)}  
 
                                                                     <h3>Skills &amp; Instruments</h3> 
                                                                     

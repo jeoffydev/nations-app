@@ -1,5 +1,5 @@
 import axios from 'axios'; 
-import { getJwt } from './authService';
+import { getJwt, logout } from './authService';
 
 const axiosApiInstance = axios.create();
 
@@ -28,7 +28,10 @@ axiosApiInstance.interceptors.response.use((response) => {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + getJwt();
         return axiosApiInstance(originalRequest);
     }
-    
+    if (error.response.status === 401){ 
+        logout();
+    }
+   
     // window.location.href = '/';
     return Promise.reject(error);
 });
