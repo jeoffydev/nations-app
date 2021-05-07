@@ -35,6 +35,7 @@ class Navbar extends Component{
                                     <NavLink className="nav-link" to="/admin/my-rosters" > My Rosters </NavLink> 
                                 </li> 
                                 { userAccess === 'Admin' &&  <li className="nav-item"> <NavLink className="nav-link" to="/admin/users"  > Users </NavLink> </li> }
+                                { userAccess === 'Admin' &&  <li className="nav-item"> <NavLink className="nav-link" to="/admin/categories"  > Category </NavLink> </li> }
 
                                 <li className="nav-item">
                                     <span className="nav-link cursor-point" onClick={logout}  > Logout </span>

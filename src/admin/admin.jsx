@@ -6,6 +6,7 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import Navbar from './../common/navbar';
 import Dashboard from './dashboard';
 import Users from './users';
+import Categories from './categories';
 import LoggedinHeader from '../auth/loggedin-header';
 import {checkLogin } from '../auth/authService'; 
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,6 +32,7 @@ class Admin extends Component{
                                 <LoggedinHeader email={email} role={role} nameid={nameid} />
                                 <Navbar /> 
                                 <Switch>   
+                                    <Route path="/admin/categories"   render={ (props)=> <Categories itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Route path="/admin/users"   render={ (props)=> <Users itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Redirect from ="/admin" to = "/admin/my-rosters" />  
                                 </Switch>  

@@ -12,7 +12,8 @@ import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';
 import { arrayToJSONObject } from './../config/codehelper';   
 import ChangePassword from './popup/changepassword';
 import AddUser from '../admin/add-user';
-import swal from 'sweetalert';
+import swal from 'sweetalert'; 
+import { FilterFormUser } from '../form/filterhelper';
 
 class Users extends  Form{
 
@@ -33,7 +34,17 @@ class Users extends  Form{
             pw2: '',
             pwError: ''
         },
-        adminstyle: '' 
+        adminstyle: '',
+        searchUser: {
+            selectRole: '',
+            selectName: '' 
+        },
+        finalSearch: {
+            selectRole: '',
+            selectName: '' 
+        },
+         
+       
         
     }
  
@@ -158,6 +169,32 @@ class Users extends  Form{
          
     }
 
+    filterUsers = (e) =>{
+        e.preventDefault();
+        const { currentTarget: input } = e; 
+        const {  searchUser } = this.state;  
+
+        const target = e.target;
+        var value = target.value;
+        var name = target.name; 
+        if(input.name === "selectRole"){
+            searchUser.selectRole = input.value;
+            this.setState({searchUser})
+        }
+        if(input.name === "selectName"){
+            searchUser.selectName = input.value;
+            this.setState({searchUser})
+        }
+       
+    }
+
+    submitFilter = e => {
+        e.preventDefault();
+        const {  searchUser, finalSearch } = this.state;  
+        this.setState({finalSearch: searchUser})
+        
+    }
+
     submitPassword = e => {
         e.preventDefault();
 
@@ -236,13 +273,35 @@ class Users extends  Form{
     
 
     render(){ 
-        const { dataUsers, pw1, pw2  } = this.state;   
-        const {instruments,   data, password, adminstyle  } = this.state;
+        const { dataUsers, pw1, pw2, searchUser  } = this.state;   
+        const {instruments,   data, password,   finalSearch  } = this.state;
         const {item, name } = this.props;   
+        var searchResult ='';
 
-       
+        console.log(finalSearch, dataUsers)
+
+
+        /* Filter here */
+        var filteredDataUsers = dataUsers;
+        if(finalSearch.selectName && !finalSearch.selectRole){
+            filteredDataUsers =  finalSearch.selectName ? dataUsers.filter(u=>u.fullName.toLowerCase().includes(finalSearch.selectName.toLowerCase()) ||  u.email.toLowerCase().includes(finalSearch.selectName.toLowerCase()) )  : dataUsers; 
+        }else if(!finalSearch.selectName && finalSearch.selectRole){ 
+            filteredDataUsers = finalSearch.selectRole || finalSearch.selectName ? dataUsers.filter(u=>u.role === finalSearch.selectRole   )  : dataUsers; 
+        }else{
+            filteredDataUsers = finalSearch.selectRole || finalSearch.selectName ? dataUsers.filter(u=>u.role === finalSearch.selectRole &&  u.fullName.toLowerCase().includes(finalSearch.selectName.toLowerCase())  )  : dataUsers; 
+        }
+        
+        if(filteredDataUsers.length === 0 ){
+            searchResult = <p className="text-center"> <i class="fa  fa-search"></i> No user found...</p>
+        }  
+
+        
+
+
+        /* Filter here  */
+ 
         var userArray = [];
-        for (let value of Object.values(dataUsers)) { 
+        for (let value of Object.values(filteredDataUsers)) { 
             var arrayPush = {'id': value.id, 'fullname': value.fullName, 'email': value.email, 'role': value.role, 'instruments':  value.membersInstrumentViewModels}
             userArray.push(arrayPush);
         } 
@@ -256,7 +315,7 @@ class Users extends  Form{
         }   
         
         const userList = userArray.map( (user) =>   
-            {   
+            {    
                 
                 var insSel = [];
                 for (let value of user.instruments) {  
@@ -395,9 +454,18 @@ class Users extends  Form{
                         <div className="row">
                             <div className="col-md-12">
                                 <h2> <i className="fa fa-users"></i> Users </h2> 
-                                 <AddUser />
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <AddUser />
+                                    </div> 
+                                    <div className="col-md-9">  
+                                        <FilterFormUser name1 ="selectName" label1 ="Filter users name" placeholder1 ="Ex. Jeoffy" name2 ="selectRole"  label2 ="Select Role" values ="User,Admin"   onSubmit={this.submitFilter}  onChange={this.filterUsers}  />
+                                    </div>
+                                </div>
+                                 
                                 <div>
                                     {userList}  
+                                    {searchResult}
                                 </div>
 
                             </div>
