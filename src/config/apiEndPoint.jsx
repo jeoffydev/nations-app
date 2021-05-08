@@ -41,6 +41,22 @@ export function apiEndPoint(opts){
         case 'add-category':  
           return urlApi + 'api/category';
           break; 
+
+        //Instruments
+        case 'get-instruments':
+          return urlApi + 'api/instrument';
+          break;
+        case 'update-instrument':
+            return urlApi + 'api/instrument';
+            break; 
+        case 'delete-instrument':
+            return urlApi + 'api/instrument';
+            break;    
+        case 'add-instrument':  
+          return urlApi + 'api/instrument';
+          break; 
+        
+        
         default:
           // code block
     }
