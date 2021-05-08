@@ -72,11 +72,11 @@ class Form extends Component{
         }else{
             //Display in setState please
             delete errors[input.name];
-        }
+        } 
          
         const data = {...this.state.data};
         //get the name attribute of input textbox login
-         console.log(input.name + " = " + input.value);
+        console.log(input.name + " = " + input.value);
         data[input.name] = input.value; 
        
         this.setState({ data, errors }); 

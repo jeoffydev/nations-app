@@ -261,8 +261,7 @@ class Users extends  Form{
 
                 swal("User has been deleted!", {
                     icon: "success",
-                });
-                console.log(id);
+                }); 
             } else {
               swal("User is safe!");
             }
@@ -292,7 +291,7 @@ class Users extends  Form{
         }
         
         if(filteredDataUsers.length === 0 ){
-            searchResult = <p className="text-center"> <i class="fa  fa-search"></i> No user found...</p>
+            searchResult = <p className="text-center"> <i className="fa  fa-search"></i> No user found...</p>
         }  
 
         

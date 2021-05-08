@@ -28,6 +28,19 @@ export function apiEndPoint(opts){
           return urlApi + 'api/account/DeleteThisUser';
           break;  
          
+         //Categories
+        case 'get-categories':
+            return urlApi + 'api/category';
+          break;
+        case 'update-category':
+            return urlApi + 'api/category';
+          break; 
+        case 'delete-category':
+            return urlApi + 'api/category';
+          break;    
+        case 'add-category':  
+          return urlApi + 'api/category';
+          break; 
         default:
           // code block
     }
