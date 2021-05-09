@@ -15,13 +15,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class Admin extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         
     }  
 
     componentDidMount(){  
-        checkLogin(this.props.itemProps)
+         checkLogin(this.props.itemProps)
+        
     }
     render(){ 
 
@@ -33,11 +34,12 @@ class Admin extends Component{
                                 <LoggedinHeader email={email} role={role} nameid={nameid} />
                                 <Navbar /> 
                                 
-                                <Switch>   
+                                <Switch>    
                                     <Route path="/admin/instruments"   render={ (props)=> <Instruments itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Route path="/admin/categories"   render={ (props)=> <Categories itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Route path="/admin/users"   render={ (props)=> <Users itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Redirect from ="/admin" to = "/admin/my-rosters" />  
+                                    
                                 </Switch>  
                          
                 </div>

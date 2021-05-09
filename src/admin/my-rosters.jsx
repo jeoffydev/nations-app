@@ -1,20 +1,23 @@
 import React, {Component} from 'react';  
 import {checkLogin } from '../auth/authService'; 
 import Navbar from './../common/navbar';
-import LoggedinHeader from '../auth/loggedin-header';
+import LoggedinHeader from '../auth/loggedin-header'; 
 
 class MyRosters extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         
     } 
     componentDidMount(){   
         //Get the user loggedIn
-        checkLogin(this.props.itemProps)
-        
+        checkLogin(this.props.itemProps);
+         
     }
 
+    
     render(){  
+ 
+
         const {email, nameid, role } = this.props.itemState;    
         
         return ( 

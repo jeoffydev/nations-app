@@ -19,20 +19,27 @@ class App extends Component{
   state ={
     email : '',
     nameid : '',
-    role: ''
+    role: '',
+    authenticated: ''
   }
+
   componentDidMount(){ 
-    const { email, nameid, role } = this.state;    
+    const { email, nameid, role, authenticated } = this.state;    
     try{
         const {email, nameid, role} = getCurrentUser();  
-        this.setState({ email, nameid, role  });   
+ 
+        if(email && nameid && role){ 
+          this.setState({ email, nameid, role, authenticated:email  });   
+        }
+       
+      
     }
     catch(e){  } 
 }
    
   render(){
     
-    const {email, nameid, role } = this.state;    
+    const {email, nameid, role, authenticated } = this.state;    
     
     return (
         <div className="App container">  
@@ -40,6 +47,16 @@ class App extends Component{
             <BrowserRouter>
               <Switch>   
                       
+                      {/*<Route path="/admin" render={() => {
+                        if (authenticated) { 
+                          (<Admin itemState = {this.state } itemProps = {props}  />)
+                        } else {
+                          ( <Route path="/" exact component={Home} />  )
+                        }
+                      }} />
+                       <Route path="/admin"  render={ (props)=> <Admin itemState = {this.state } itemProps = {props}  />} />  
+                      
+                      */}
                     
                       <Route path="/error-page" component={Errorpage} />
                       <Route path="/roster/:accesscode" component={Rosteraccess} />  

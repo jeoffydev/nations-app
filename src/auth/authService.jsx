@@ -1,29 +1,33 @@
-import jwtDecode from 'jwt-decode';    
+import jwtDecode from 'jwt-decode';     
 
 //Set default landing page for loggin users
 const defaultLandingPage = '/admin/my-rosters';
 
-export function checkLogin(props){  
-        const data = getCurrentUser();  
-        if(!data){
-            props.history.push('/')
+export function checkLogin(props, propsmain){  
+        const data = getCurrentUser();    
+        
+        if(!data ){ 
+            props.history.push('/')   
+            return;
         } 
-        return data; 
+           
+        return data;  
 } 
  
 export function authAdminAccess(props){
 
-    const login = checkLogin(props); 
+    const login = checkLogin(props);  
+ 
     if(!login){
-        props.history.push('/') 
+        props.history.push('/')  
         return;
     } 
-
+      
     const {role} = getCurrentUser();  
     if(role != 'Admin'){
         alert("Sorry, for admin access only!")
         props.history.push(defaultLandingPage)
-    } 
+    }  
     
 }
 
@@ -44,7 +48,7 @@ export function getUserRole(){
     }
     catch(e){
         return null;
-    } 
+    }  
     
 }
 

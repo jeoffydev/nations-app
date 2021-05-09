@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 
 import {EditButton} from '../popup/popup-helper';  
 import Users from '../users';
+import AddInstrument from '../add-instrument';
 
 //npm install @testing-library/react --save
 import { render, cleanup } from '@testing-library/react';
@@ -15,6 +16,11 @@ import "@testing-library/jest-dom/extend-expect";
 import renderer   from 'react-test-renderer'; 
 
 afterEach(cleanup);
+
+beforeEach(() => {
+    jest.spyOn(console, 'error')
+    global.console.error.mockImplementation(() => {})
+})
 
 it("renders without crashing", ()=>{
     const div = document.createElement("div");
@@ -36,6 +42,6 @@ it("renders without crashing", ()=>{
 
  
 it("matches snapshots", ()=>{
-    const tree = renderer.create( <Users /> ) .toJSON()  ;
+    const tree = renderer.create( <EditButton   /> ) .toJSON()  ;
     expect(tree).toMatchSnapshot();
 })

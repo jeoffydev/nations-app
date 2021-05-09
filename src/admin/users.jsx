@@ -79,7 +79,7 @@ class Users extends  Form{
 
         axiosApiInstance.get(apiEndPoint('get') ) 
         .then(res => {
-            console.log(res);
+            //console.log(res);
             this.setState( { dataUsers : res.data });  
         })   
 
@@ -153,8 +153,8 @@ class Users extends  Form{
          
         const target = e.target;
         var value = target.value;
-        console.log("value", value, " target.checked = ", target.checked   );
-        console.log("id", id)
+        //console.log("value", value, " target.checked = ", target.checked   );
+        //console.log("id", id)
         if(id){
             password.id = id;
             this.setState({password})
@@ -169,7 +169,7 @@ class Users extends  Form{
             this.setState({password})
         }
 
-        console.log(password);
+        //console.log(password);
          
     }
 
@@ -211,12 +211,12 @@ class Users extends  Form{
                     "id": password.id,
                     "password":  password.pw1
                 }   
-                console.log(dataObj)
+                //console.log(dataObj)
                 //Send update password request
                 axiosApiInstance.put(apiEndPoint('update-user-password'), dataObj )
                     .then(res => { 
                         try{
-                            console.log(res);
+                            //console.log(res);
                         }
                         catch(e){
                             return null;
@@ -288,7 +288,7 @@ class Users extends  Form{
         const {item, name } = this.props;   
         var searchResult ='';
 
-        console.log(finalSearch, dataUsers)
+        //console.log(finalSearch, dataUsers)
 
 
         /* Filter here */

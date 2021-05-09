@@ -3,6 +3,7 @@ import {authAdminAccess } from '../auth/authService';
 import Form from './../form/form'; 
 import Joi from 'joi-browser'; 
 import AddCategory from './add-category';
+import AddInstrument from './add-instrument';
 
 
 //Import these 2 for api and http post
@@ -38,6 +39,7 @@ class Instruments extends  Form{
     schema = { 
         id : Joi.number().required(),
         instrumentName : Joi.string().required().min(4), 
+        instrumentDescription : Joi.string(), 
     }
 
    
@@ -162,9 +164,9 @@ class Instruments extends  Form{
             return (
                 <tbody key={ins.id}> 
                     <tr> 
-                        <td>{ins.instrumentName}</td>
+                        <td>{ins.instrumentName} - <small>{ins.instrumentDescription}</small></td>
                         <td  className="text-center">  
-                            <span onClick={()=>this.handleCategoryDetails(ins, insName)}>   <EditButton idname={insName} id={ins.id} label="Edit" />  </span>   
+                            <span onClick={()=>this.handleInstrumentDetails(ins, insName)}>   <EditButton idname={insName} id={ins.id} label="Edit" />  </span>   
                         
                         </td>
                         <td  className="text-center"> <span  className="cursor-point" onClick={()=>this.deleteInstrument(ins.id)}  > <i className="fa fa-trash"></i> </span> </td>
@@ -184,7 +186,7 @@ class Instruments extends  Form{
 
                                 <div className="row">
                                     <div className="col-md-3">
-                                        
+                                        <AddInstrument  />
                                     </div> 
                                     <div className="col-md-9">  
                                         
@@ -198,7 +200,7 @@ class Instruments extends  Form{
                                     <table className="table table-striped">
                                         <thead>
                                             <tr> 
-                                                <th scope="col">Instrument Name</th>
+                                                <th scope="col">Instrument Name/Description</th>
                                                 <th className="text-center" scope="col">Edit</th>
                                                 <th className="text-center" scope="col">Delete</th>
                                             </tr>
