@@ -32,6 +32,7 @@ class Admin extends Component{
                 <div className="container">  
                                 <LoggedinHeader email={email} role={role} nameid={nameid} />
                                 <Navbar /> 
+                                
                                 <Switch>   
                                     <Route path="/admin/instruments"   render={ (props)=> <Instruments itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Route path="/admin/categories"   render={ (props)=> <Categories itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   

@@ -43,7 +43,7 @@ class Users extends  Form{
             selectRole: '',
             selectName: '' 
         },
-         
+        hasError: false
        
         
     }
@@ -52,7 +52,7 @@ class Users extends  Form{
 
     constructor(){
         super();
-        
+         
     }  
 
     //Joi schema
@@ -63,7 +63,11 @@ class Users extends  Form{
         membersInstrumentViewModels: Joi.array().required()  
     }
 
-   
+    static getDerivedStateFromError(error) {
+        // Update state so the next render will show the fallback UI.
+        return { hasError: true };
+      }
+     
 
     componentDidMount(){   
         const { dataUsers, password } = this.state; 
@@ -272,6 +276,13 @@ class Users extends  Form{
     
 
     render(){ 
+
+
+        if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return <h1>Something went wrong.</h1>;
+        }
+
         const { dataUsers, pw1, pw2, searchUser  } = this.state;   
         const {instruments,   data, password,   finalSearch  } = this.state;
         const {item, name } = this.props;   
@@ -353,7 +364,7 @@ class Users extends  Form{
                                             <p> Role:  {user.role === "Admin" ? <span className="badge  badge-success"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary"> {user.role} </span>}   </p>
                                             <p>  Email:<br />  {user.email} </p> 
                                             <span onClick={()=>this.handleUserDetails(user, insSel)} >
-                                                <EditButton idname={name} id={user.id} label="Edit" /> 
+                                                <EditButton idname={name} id={user.id} label="Edit" /> <br />
                                                 <EditButton idname="ChangePassword" id={user.id} label="Change Password" /> 
                                             </span> 
                         

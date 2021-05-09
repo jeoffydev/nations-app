@@ -1,6 +1,6 @@
  
 import React, {Component} from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom'; 
+import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'; 
 import Rosteraccess from './rosteraccess';
 import Home from './home';
 import { ToastContainer } from 'react-toastify';
@@ -37,22 +37,24 @@ class App extends Component{
     return (
         <div className="App container">  
             <ToastContainer />  
-            <Switch>   
+            <BrowserRouter>
+              <Switch>   
+                      
                     
-                   
-                    <Route path="/error-page" component={Errorpage} />
-                    <Route path="/roster/:accesscode" component={Rosteraccess} />  
+                      <Route path="/error-page" component={Errorpage} />
+                      <Route path="/roster/:accesscode" component={Rosteraccess} />  
 
-                    {/* PRivate pages */}
-                    <Route path="/admin/my-rosters"   render={ (props)=> <MyRosters itemState = {this.state } itemProps = {props}  />} />  
-                    <Route path="/admin"  render={ (props)=> <Admin itemState = {this.state } itemProps = {props}  />} />  
                       {/* PRivate pages */}
+                      <Route path="/admin/my-rosters"   render={ (props)=> <MyRosters itemState = {this.state } itemProps = {props}  />} />  
+                      <Route path="/admin"  render={ (props)=> <Admin itemState = {this.state } itemProps = {props}  />} />  
+                        {/* PRivate pages */}
 
-                    <Route path="/" exact component={Home} />   
-                    <Redirect from ="/home" to = "/" />  
-                    <Redirect to="/error-page"   />
-                  
-            </Switch> 
+                      <Route path="/" exact component={Home} />   
+                      <Redirect from ="/home" to = "/" />  
+                      <Redirect to="/error-page"   />
+                    
+              </Switch> 
+            </BrowserRouter>
         </div>
       );
     }

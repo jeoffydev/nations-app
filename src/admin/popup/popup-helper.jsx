@@ -5,9 +5,9 @@ export function EditButton  ( props ) {
     return (
             
         <React.Fragment>
-            <p> 
-                <button type="button" className="btn btn-sm btn-dark " data-toggle="modal" data-target={'#' + idname + 'Modal' +  id}> {label} </button> 
-            </p>
+            <div  > 
+                <button type="button" className="btn btn-sm btn-dark " data-testid="editbutton" data-toggle="modal" data-target={'#' + idname + 'Modal' +  id}> {label} </button> 
+            </div>
         </React.Fragment>
       
     )  
