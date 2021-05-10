@@ -226,7 +226,7 @@ class Songs extends  Form{
                              <div className="modal fade" id={songPopName + 'Modal' + data.id}  tabIndex="-1" role="dialog" aria-labelledby="popModalLabel" aria-hidden="true">
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content"> 
-                                        <PopupHeader idname="song" label={'Edit ' + data.songName} />  
+                                        <PopupHeader idname="song" label={'Edit ' + data.songName}  />  
                                         <div className="modal-body text-left">  
                                             <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
                                                 {this.renderInputEdit('id', '', 'hidden',  data.id )}  

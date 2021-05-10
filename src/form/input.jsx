@@ -164,7 +164,7 @@ export function InputIndependent  ( props ) {
 
 export function TextareaIndependent  ( props ) {
      
-    const { name, type, label,  value, onChange   } = props; 
+    const { name,   label,  value, onChange   } = props; 
 
     var valuex = '';
     if(value){
@@ -176,7 +176,7 @@ export function TextareaIndependent  ( props ) {
            <div className="form-group">
                 <label htmlFor={name}>{label}</label>
                 
-               <textarea  name={name}  class="form-control" id={name}  rows="3" onChange={onChange}    value={valuex} >{valuex}</textarea>  
+               <textarea   name={name}  className="form-control" id={name}  rows="3" onChange={onChange}    value={valuex} >{valuex}</textarea>  
                  
             </div>
         </React.Fragment>

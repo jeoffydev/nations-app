@@ -2,13 +2,17 @@
   
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'; 
-
-import {EditButton} from '../popup/popup-helper';  
+import TestRenderer from 'react-test-renderer';
+  
 import Users from '../users';
+import Songs from '../songs';
+import Form from '../../form/input';
 import AddInstrument from '../add-instrument';
 
 //npm install @testing-library/react --save
 import { render, cleanup } from '@testing-library/react';
+
+import {PopupHeader, EditButton, AddButton} from '../popup/popup-helper';  
 
 //Use @testing-library/jest-dom then import @testing-library/jest-dom/extend-expect
 import "@testing-library/jest-dom/extend-expect";
@@ -28,20 +32,19 @@ it("renders without crashing", ()=>{
 })
 
 
-it("renders without crashing", ()=>{
-    const {getByTestId} = render( <EditButton   idname="user" id="0001111-xx1111" label="Edit"  /> )  
-    expect(getByTestId('editbutton')).toBeTruthy();
-})
-
  
-it("renders without crashing", ()=>{
-    const {getByTestId} = render( <EditButton   idname="user" id="0001111-xx1111" label="Edits"  /> )  
-    expect(getByTestId('editbutton')).toBeTruthy();
-})
-
+ 
 
  
 it("matches snapshots", ()=>{
-    const tree = renderer.create( <EditButton   /> ) .toJSON()  ;
+    const tree = renderer.create( <EditButton    /> ) .toJSON()  ;
     expect(tree).toMatchSnapshot();
 })
+
+
+ 
+
+  const testRenderer = TestRenderer.create(<PopupHeader idname="song" label="Test label"  />);
+  const testInstance = testRenderer.root;
+  
+  expect(testInstance.findByType(PopupHeader).props.idname).toBe('song');  

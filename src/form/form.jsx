@@ -184,7 +184,7 @@ class Form extends Component{
 
      renderTextareaIndependent = (name, label, type, value ) =>{  
         return (
-         <TextareaIndependent   type={type}  name={name} label={label} value={value} onChange={this.independentFormChange}   /> 
+         <TextareaIndependent     name={name} label={label} value={value} onChange={this.independentFormChange}   /> 
        ) 
        
      }
