@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; 
 import Joi from 'joi-browser'; 
-import {Input, InputCheckBox, InputreadOnly, Select} from './input';
+import {Input, InputCheckBox, InputreadOnly, Select, InputIndependent, TextareaIndependent} from './input';
 
 class Form extends Component{
 
@@ -172,6 +172,23 @@ class Form extends Component{
        ) 
        
      }
+
+     //Note: You must add independentFormChange() into your component
+     renderInputIndependent = (name, label, type, value ) =>{  
+        return (
+         <InputIndependent   type={type}  name={name} label={label} value={value} onChange={this.independentFormChange}   /> 
+       ) 
+       
+     }
+
+
+     renderTextareaIndependent = (name, label, type, value ) =>{  
+        return (
+         <TextareaIndependent   type={type}  name={name} label={label} value={value} onChange={this.independentFormChange}   /> 
+       ) 
+       
+     }
+
  
 
      

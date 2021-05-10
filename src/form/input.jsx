@@ -131,8 +131,65 @@ export function InputCheckBox  ( props ) {
 } 
 
 
+export function InputIndependent  ( props ) {
+     
+    const { name, type, label,  value, onChange   } = props; 
+
+    var valuex = '';
+    if(value){
+        valuex = value;
+    } 
+    return (
+            
+        <React.Fragment>
+           <div className="form-group">
+                <label htmlFor={name}>{label}</label>
+                <input type={type} 
+                name={name} 
+                value={valuex} 
+                onChange={onChange}  
+                className="form-control" 
+                id={name} 
+ 
+                 /> 
+                 
+            </div>
+        </React.Fragment>
+      
+    ) 
+ 
+
+} 
+
+
+export function TextareaIndependent  ( props ) {
+     
+    const { name, type, label,  value, onChange   } = props; 
+
+    var valuex = '';
+    if(value){
+        valuex = value;
+    } 
+    return (
+            
+        <React.Fragment>
+           <div className="form-group">
+                <label htmlFor={name}>{label}</label>
+                
+               <textarea  name={name}  class="form-control" id={name}  rows="3" onChange={onChange}    value={valuex} >{valuex}</textarea>  
+                 
+            </div>
+        </React.Fragment>
+      
+    ) 
+ 
+
+} 
+
+
 export default{
     Input,
     InputreadOnly ,
-    InputCheckBox 
+    InputCheckBox,
+    InputIndependent 
 }

@@ -23,7 +23,7 @@ class Songs extends  Form{
             artist: '' 
         }, 
         externalSongUrl: '',
-        YoutTubeIFrame: '',
+        youtTubeIFrame: '',
         comment: '',
         errors : {},
         popupName: ''  
@@ -66,24 +66,39 @@ class Songs extends  Form{
     
     handleSongDetails(song, songPopName ){
              
-        const { data, popupName  } = this.state;
+        const { data, popupName, externalSongUrl, youtTubeIFrame, comment   } = this.state;
 
         data.id = song.id; 
         data.songName = song.songName;  
-        this.setState({data, popupName: songPopName});
+        data.artist = song.artist;  
+       
+        this.setState({
+            data, 
+            popupName: songPopName, 
+            externalSongUrl : song.externalSongUrl, 
+            youtTubeIFrame :  song.youtTubeIFrame, 
+            comment : song.comment  
+
+        });
 
    }
 
 
    //Do submit all the forms
    doSubmit = async () =>{ 
-        const {   data } = this.state;  
+        const {   data, externalSongUrl, youtTubeIFrame, comment  } = this.state;  
         
         //Stringify to json
         const dataObj = {
             "songName" : data.songName,
-            "id": data.id,  
+            "id": data.id, 
+            "artist": data.artist,
+            "externalSongUrl" : externalSongUrl,
+            "youtTubeIFrame": youtTubeIFrame,
+            "comment" : comment 
         }  
+ 
+        
         //Send update request
         axiosApiInstance.put(apiEndPoint('update-song'),  dataObj )
         .then(res => { 
@@ -144,12 +159,31 @@ class Songs extends  Form{
           });
 
     }
- 
+    
+    independentFormChange =(e)=>{
+        const {  externalSongUrl, youtTubeIFrame, comment } = this.state;  
+        const { currentTarget: input } = e;  
+        const target = e.target;
+        var value = target.value;
+        var name = target.name; 
+
+        if(name === 'externalSongUrl'){
+            this.setState({ externalSongUrl: value })
+        }
+
+        if(name === 'youtTubeIFrame'){
+            this.setState({ youtTubeIFrame: value })
+        }
+
+        if(name === 'comment'){
+            this.setState({ comment: value })
+        } 
+    }
   
 
     render(){ 
         
-        const { dataSongs, data, popupName } = this.state; 
+        const { dataSongs, data, popupName, externalSongUrl, youtTubeIFrame, comment } = this.state; 
         //console.log(dataSongs, data, popupName);
 
         /* Filter here  */
@@ -176,14 +210,15 @@ class Songs extends  Form{
                             <div className="row">
                                 <div className="col-md-3">
                                     <span onClick={()=>this.handleSongDetails(song, songPopName)} >
-                                        <EditButton idname={songPopName} id={song.id} label="Edit" /> <br />
+                                        <EditButton idname={songPopName} id={song.id} label="Edit Song" /> <br />
                                     </span>
                                 </div>
                                 <div className="col-md-9">
-                                    {song.artist} <br />
-                                    {song.externalSongUrl}
+                                    <p>Artist: {song.artist} </p>
+                                    {song.externalSongUrl && <p> Link: <a href={song.externalSongUrl} target='_blank'>{song.externalSongUrl}</a> </p>}
                                     <div dangerouslySetInnerHTML={createHtml(song.youtTubeIFrame)} /> 
-                                    {song.youtTubeIFrame}
+                                    {song.comment && <p> Additional comment:<br />  {song.comment} </p>}
+                                    
                                 </div>
                             </div>
 
@@ -196,7 +231,11 @@ class Songs extends  Form{
                                             <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
                                                 {this.renderInputEdit('id', '', 'hidden',  data.id )}  
                                                 {this.renderInputEdit('songName', 'Song Name', 'text', data.songName  )}
-                                                {this.renderButton('Update')} 
+                                                {this.renderInputEdit('artist', 'Artist', 'text', data.artist  )}
+                                                {this.renderInputIndependent('externalSongUrl', 'External Link', 'text', externalSongUrl )}
+                                                {this.renderTextareaIndependent('youtTubeIFrame', 'Youtube IFrame', 'text', youtTubeIFrame )}
+                                                {this.renderTextareaIndependent('comment', 'Additional Info', 'text', comment)}
+                                                {this.renderButton('Update')}  
                                             </form>  
                                         </div>
                                         <div className="modal-footer">
@@ -253,7 +292,7 @@ class Songs extends  Form{
 
                    
 
-           </ React.Fragment>
+           </React.Fragment>
         )
     }
 }
