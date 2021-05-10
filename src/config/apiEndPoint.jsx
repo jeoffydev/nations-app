@@ -55,6 +55,20 @@ export function apiEndPoint(opts){
         case 'add-instrument':  
           return urlApi + 'api/instrument';
           break; 
+
+        //Songs
+        case 'get-songs':
+          return urlApi + 'api/song';
+          break;
+        case 'update-song':
+          return urlApi + 'api/song';
+          break; 
+        case 'delete-song':
+          return urlApi + 'api/song';
+          break;    
+        case 'add-song':  
+          return urlApi + 'api/song';
+          break; 
         
         
         default:

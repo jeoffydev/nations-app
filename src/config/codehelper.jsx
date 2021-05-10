@@ -13,3 +13,8 @@ export function arrayToJSONObject(arr){
     return obj; 
     
 }
+
+
+export  function  createHtml(youtTubeIFrame){
+    return {__html: youtTubeIFrame};
+}

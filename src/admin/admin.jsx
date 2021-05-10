@@ -8,6 +8,7 @@ import Dashboard from './dashboard';
 import Users from './users';
 import Categories from './categories';
 import Instruments from './instruments';
+import Songs from './songs';
 import LoggedinHeader from '../auth/loggedin-header';
 import {checkLogin } from '../auth/authService'; 
 import 'react-toastify/dist/ReactToastify.css';
@@ -35,6 +36,7 @@ class Admin extends Component{
                                 <Navbar /> 
                                 
                                 <Switch>    
+                                    <Route path="/admin/songs"   render={ (props)=> <Songs itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   /> 
                                     <Route path="/admin/instruments"   render={ (props)=> <Instruments itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Route path="/admin/categories"   render={ (props)=> <Categories itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   
                                     <Route path="/admin/users"   render={ (props)=> <Users itemState = {this.props.itemState} itemProps = {this.props.itemProps}  />}   />   

@@ -20,8 +20,8 @@ class AddInstrument extends Form{
         
     } 
     schema = {
-        instrumentName : Joi.string().required().label("Category name"), 
-        instrumentDescription : Joi.string().label("Category description"), 
+        instrumentName : Joi.string().required().label("Instrument name"), 
+        instrumentDescription : Joi.string().label("Instrument description"), 
     }  
 
     constructor(){
