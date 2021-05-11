@@ -8,6 +8,9 @@ import {getCurrentUser, login} from './auth/authService';
 import AlertMessage from './common/alert'; 
 import NationsLogo from './common/logo';
 
+import { Container, Header } from 'semantic-ui-react'
+
+
 class Home extends Form{
 
     state={
@@ -65,33 +68,33 @@ class Home extends Form{
 
         return (
             <React.Fragment>
-                <div className="row login-form">
-                    <div className="col-md-4"></div>
-                    <div className="col-md-4 text-left">
+                <Container text>
+                    <div className="row login-form">
+                        <div className="col-md-4"></div>
+                        <div className="col-md-4 text-left">
 
-                    <div className="text-center mb-4">
-                            <NationsLogo classes="img-thumbnail" imgUrl="/nations-logo.png" />
-                           
-                            <h1 className="h3 mb-3 font-weight-normal">Nations Roster App</h1>
-                            <p>“Advancing the kingdom”. We exist to make disciples who in turn make disciples.</p>
+                        <div className="text-center mb-4 text-white">
+                                <NationsLogo classes="img-thumbnail" imgUrl="/nations-logo.png" />
+                                <Header as='h3'>Nations Roster App</Header> 
+                                <p>“Advancing the kingdom”. We exist to make disciples who in turn make disciples.</p>
+                        </div>
+
+                        {loginError && <AlertMessage value={loginError} classes='alert-danger' /> }        
+
+                        <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
+
+                            {this.renderInput('email', 'Email Address', 'email')}
+                            {this.renderInput('password', 'Password', 'password')}
+                            {this.renderButton('Login')}
+                            
+                            
+                            
+                        </form>
+
+                        </div>
+                        <div className="col-md-4"></div>
                     </div>
-
-                    {loginError && <AlertMessage value={loginError} classes='alert-danger' /> }        
-
-                    <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
-
-                        {this.renderInput('email', 'Email Address', 'email')}
-                        {this.renderInput('password', 'Password', 'password')}
-                        {this.renderButton('Login')}
-                        
-                        
-                        
-                    </form>
-
-                    </div>
-                    <div className="col-md-4"></div>
-                </div>
-                  
+                </Container>
         </React.Fragment>
         )
     }

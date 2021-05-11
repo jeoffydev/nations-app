@@ -6,8 +6,10 @@ import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals'; 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
+import 'semantic-ui-css/semantic.min.css'
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
+
  
 
 ReactDOM.render(
