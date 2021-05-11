@@ -75,7 +75,7 @@ class Home extends Form{
 
                         <div className="text-center mb-4 text-white">
                                 <NationsLogo classes="img-thumbnail" imgUrl="/nations-logo.png" />
-                                <Header as='h3'>Nations Roster App</Header> 
+                                <Header as='h3' icon='users' content='Nations Roster App'></Header> 
                                 <p>“Advancing the kingdom”. We exist to make disciples who in turn make disciples.</p>
                         </div>
 

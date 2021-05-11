@@ -13,6 +13,8 @@ import axiosApiInstance from '../auth/httpService';
 import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';  
 import swal from 'sweetalert'; 
 
+import { Header } from 'semantic-ui-react'
+
 class Instruments extends  Form{
 
     state = {
@@ -182,7 +184,7 @@ class Instruments extends  Form{
                     <main className="container whitebg text-left body-content"> 
                         <div className="row">
                             <div className="col-md-12">
-                                <h2> <i className="fa fa-sticky-note"></i> Instruments </h2> 
+                                <Header as='h2' icon='box' content='Instruments'></Header> 
 
                                 <div className="row">
                                     <div className="col-md-3">

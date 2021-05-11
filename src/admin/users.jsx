@@ -15,6 +15,8 @@ import AddUser from '../admin/add-user';
 import swal from 'sweetalert'; 
 import { FilterFormUser } from '../form/filterhelper';
 
+import { Header } from 'semantic-ui-react'
+
 class Users extends  Form{
 
     state = {
@@ -463,7 +465,7 @@ class Users extends  Form{
                     <main className="container whitebg text-left body-content"> 
                         <div className="row">
                             <div className="col-md-12">
-                                <h2> <i className="fa fa-users"></i> Users </h2> 
+                                <Header as='h2' icon='users' content='Users'></Header> 
                                 <div className="row">
                                     <div className="col-md-3">
                                         <AddUser />
