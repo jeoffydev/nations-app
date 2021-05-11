@@ -10,10 +10,10 @@ import { createHtml } from './../config/codehelper';
 import { apiEndPoint } from '../config/apiEndPoint'; 
 import axiosApiInstance from '../auth/httpService';  
 
-import {PopupHeader, EditButton, AddButton} from './popup/popup-helper';  
+import {PopupHeader, EditButton, AddButton, PopupModal} from './popup/popup-helper';  
 import swal from 'sweetalert'; 
 
-import { Header } from 'semantic-ui-react'
+import { Header, Modal } from 'semantic-ui-react'
 
 class Songs extends  Form{
 
@@ -31,9 +31,7 @@ class Songs extends  Form{
         popupName: ''  
         
         
-    }
- 
-
+    } 
 
     constructor(props){
         super(props);
@@ -49,8 +47,7 @@ class Songs extends  Form{
 
    
 
-    componentDidMount(){   
-
+    componentDidMount(){    
         //Only admin access only
         authAdminAccess(this.props.itemProps); 
 
@@ -62,9 +59,7 @@ class Songs extends  Form{
              this.setState( { dataSongs : res.data });  
         })    
          
-    }
-
-   
+    } 
     
     handleSongDetails(song, songPopName ){
              
@@ -83,8 +78,7 @@ class Songs extends  Form{
 
         });
 
-   }
-
+   } 
 
    //Do submit all the forms
    doSubmit = async () =>{ 
@@ -183,17 +177,12 @@ class Songs extends  Form{
     }
   
 
-    render(){ 
-
-
-
+    render(){  
         
         const { dataSongs, data, popupName, externalSongUrl, youtTubeIFrame, comment } = this.state; 
-        //console.log(dataSongs, data, popupName);
- 
+        //console.log(dataSongs, data, popupName); 
 
-        /* Filter here  */
- 
+        /* Filter here  */ 
         var songArray = [];
         for (let value of Object.values(dataSongs)) { 
             var arrayPush = {'id': value.id, 'songName': value.songName, 'artist': value.artist, 'externalSongUrl': value.externalSongUrl, 'youtTubeIFrame': value.youtTubeIFrame, 'comment': value.comment  }
@@ -229,29 +218,27 @@ class Songs extends  Form{
                             </div>
 
 
-                             <div className="modal fade" id={songPopName + 'Modal' + data.id}  tabIndex="-1" role="dialog" aria-labelledby="popModalLabel" aria-hidden="true">
-                                <div className="modal-dialog" role="document">
-                                    <div className="modal-content"> 
-                                        <PopupHeader idname="song" label={'Edit ' + data.songName}  />  
-                                        <div className="modal-body text-left">  
-                                            <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
-                                                {this.renderInputEdit('id', '', 'hidden',  data.id )}  
-                                                {this.renderInputEdit('songName', 'Song Name', 'text', data.songName  )}
-                                                {this.renderInputEdit('artist', 'Artist', 'text', data.artist  )}
-                                                {this.renderInputIndependent('externalSongUrl', 'External Link', 'text', externalSongUrl )}
-                                                {this.renderTextareaIndependent('youtTubeIFrame', 'Youtube IFrame', 'text', youtTubeIFrame )}
-                                                {this.renderTextareaIndependent('comment', 'Additional Info', 'text', comment)}
-                                                {this.renderButton('Update')}  
-                                            </form>  
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> 
+                                <div className="modal fade" id={songPopName + 'Modal' + data.id}  tabIndex="-1" role="dialog" aria-labelledby="popModalLabel" aria-hidden="true">
+                                    <div className="modal-dialog" role="document">
+                                        <div className="modal-content"> 
+                                            <PopupHeader idname="song" label={'Edit ' + data.songName}  />  
+                                            <div className="modal-body text-left">  
+                                                <form className="form-signin" onSubmit={this.handleSubmit} noValidate> 
+                                                    {this.renderInputEdit('id', '', 'hidden',  data.id )}  
+                                                    {this.renderInputEdit('songName', 'Song Name', 'text', data.songName  )}
+                                                    {this.renderInputEdit('artist', 'Artist', 'text', data.artist  )}
+                                                    {this.renderInputIndependent('externalSongUrl', 'External Link', 'text', externalSongUrl )}
+                                                    {this.renderTextareaIndependent('youtTubeIFrame', 'Youtube IFrame', 'text', youtTubeIFrame )}
+                                                    {this.renderTextareaIndependent('comment', 'Additional Info', 'text', comment)}
+                                                    {this.renderButton('Update')}  
+                                                </form>  
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>   
-
-
+                                </div>    
                               
                             </div>
                         </div>
@@ -271,20 +258,15 @@ class Songs extends  Form{
 
                                 <div className="row">
                                     <div className="col-md-3">
-                                        
+                                        <PopupModal btnLabel="Add Song" />
                                     </div> 
                                     <div className="col-md-9">  
                                         
                                     </div>
-                                </div>
-                                 
-
+                                </div> 
                                 <div className="row">
-                                    <div className="col-md-12">
-
-                                     
-                                        {songList} 
-                                     
+                                    <div className="col-md-12">  
+                                        {songList}  
                                          
                                     </div>  
                                 </div>
@@ -292,11 +274,7 @@ class Songs extends  Form{
                                  
                             </div>
                         </div> 
-                    </main> 
-
-                   
-
-
+                    </main>  
                    
 
            </React.Fragment>

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';   
 
+import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react'
+
 export function EditButton  ( props ) { 
     const {  idname,  id, label   } = props; 
     return (
@@ -27,6 +29,39 @@ export function AddButton  ( props ) {
     )  
 
 } 
+
+
+export function PopupModal( {btnLabel} ) {
+    const [open, setOpen] = React.useState(false)
+  
+    return (
+        <Modal
+            basic
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            size='small'
+            trigger={<Button>{btnLabel}</Button>}
+        >
+        <Header icon>
+          <Icon name='itunes note' />
+          Add Song
+        </Header>
+        <Modal.Content>
+          <p>
+            Your inbox is getting full, would you like us to enable automatic
+            archiving of old messages?
+          </p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button basic color='red' inverted onClick={() => setOpen(false)}>
+            <Icon name='remove' /> Cancel
+          </Button>
+         
+        </Modal.Actions>
+      </Modal>
+    )
+  }
  
 
 
@@ -50,5 +85,6 @@ export function PopupHeader  ( props ) {
 
 export default {
     PopupHeader,
-    EditButton
+    EditButton,
+    PopupModal
 }

@@ -15,7 +15,8 @@ import AddUser from '../admin/add-user';
 import swal from 'sweetalert'; 
 import { FilterFormUser } from '../form/filterhelper';
 
-import { Header } from 'semantic-ui-react'
+import { Header, Label, Icon } from 'semantic-ui-react'
+
 
 class Users extends  Form{
 
@@ -354,8 +355,8 @@ class Users extends  Form{
                 return (
 
                     <div className="collapse-div-container" key={user.id}>
-                        <a className="btn btn-primary btn-block teal" data-toggle="collapse" href={'#userCollapse'  + user.id} role="button" aria-expanded="false" aria-controls="userCollapse">
-                            {user.fullname} {user.role === "Admin" ? <span className="badge  badge-success pull-right"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary pull-right"> {user.role} </span>} <span className="margin-right pull-right" onClick={()=>this.deleteUser(user.id)}><i className="fa fa-trash"></i></span>
+                        <a className="btn btn-primary btn-block teal text-left" data-toggle="collapse" href={'#userCollapse'  + user.id} role="button" aria-expanded="false" aria-controls="userCollapse">
+                        <Label > <Icon name='user' /> {user.fullname}  </Label>{user.role === "Admin" ? <span className="badge  badge-success pull-right"> {user.role} </span>  :  <span className="badge badge-pill badge-secondary pull-right"> {user.role} </span>} <span className="margin-right pull-right" onClick={()=>this.deleteUser(user.id)}><i className="fa fa-trash"></i></span>
                         </a>  
                         <div className="collapse" id={'userCollapse'  + user.id}>
                             <div className="card card-body">
