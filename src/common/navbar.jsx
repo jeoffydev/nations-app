@@ -3,6 +3,8 @@ import {Link, NavLink} from 'react-router-dom';
 import { getUserRole, logout} from '../auth/authService';  
 import NationsLogo from './logo';
 
+import {MenuBar} from './menubar';
+
 class Navbar extends Component{
     
     state = {
@@ -13,13 +15,15 @@ class Navbar extends Component{
         this.setState({userAccess : getUserRole()})
     }
 
+   
+
     render(){
         const {userAccess} = this.state;
         
         return ( 
             <React.Fragment>
 
-                
+                 
                    <nav className="navbar navbar-expand-lg navbar-light bg-light ">
                         
                         <a className="navbar-brand" href="/"><NationsLogo classes="img-thumbnail small-logo" imgUrl="/logo-nations.png" /></a>

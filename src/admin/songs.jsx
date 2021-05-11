@@ -258,7 +258,7 @@ class Songs extends  Form{
 
                                 <div className="row">
                                     <div className="col-md-3">
-                                        <PopupModal btnLabel="Add Song" />
+                                      
                                     </div> 
                                     <div className="col-md-9">  
                                         
